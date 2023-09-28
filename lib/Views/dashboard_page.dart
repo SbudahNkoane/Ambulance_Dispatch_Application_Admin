@@ -1,5 +1,7 @@
+import 'package:admin_app/View_Models/user_management.dart';
 import 'package:admin_app/app_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -23,7 +25,7 @@ class DashboardScreen extends StatelessWidget {
                 children: [
                   SizedBox(
                     height: 140,
-                    width: 200,
+                    width: MediaQuery.of(context).size.width / 6,
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -32,37 +34,49 @@ class DashboardScreen extends StatelessWidget {
                       child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: FutureBuilder(
+                            future: context.read<UserManager>().getAllUsers(),
                             builder: (context, snapshot) {
-                              return const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('Total users'),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text('500'),
-                                      SizedBox(
-                                        width: 50,
-                                      ),
-                                      Icon(
-                                        Icons.person_pin,
-                                        size: 50,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              );
+                              return snapshot.hasData
+                                  ? Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text('Total users'),
+                                        SizedBox(
+                                          height: 30,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text('${snapshot.data!.length}'),
+                                            SizedBox(
+                                              width: 50,
+                                            ),
+                                            Icon(
+                                              Icons.person_pin,
+                                              size: 50,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  : Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        CircularProgressIndicator(),
+                                      ],
+                                    );
                             },
                           )),
                     ),
                   ),
                   SizedBox(
                     height: 140,
-                    width: 200,
+                    width: MediaQuery.of(context).size.width / 6,
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -101,7 +115,7 @@ class DashboardScreen extends StatelessWidget {
                   ),
                   SizedBox(
                     height: 140,
-                    width: 200,
+                    width: MediaQuery.of(context).size.width / 6,
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -140,7 +154,7 @@ class DashboardScreen extends StatelessWidget {
                   ),
                   SizedBox(
                     height: 140,
-                    width: 200,
+                    width: MediaQuery.of(context).size.width / 6,
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -184,7 +198,7 @@ class DashboardScreen extends StatelessWidget {
                 children: [
                   SizedBox(
                     height: 300,
-                    width: 450,
+                    width: MediaQuery.of(context).size.width / 2.6,
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -234,7 +248,7 @@ class DashboardScreen extends StatelessWidget {
                   ),
                   SizedBox(
                     height: 300,
-                    width: 450,
+                    width: MediaQuery.of(context).size.width / 2.6,
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),

@@ -1,3 +1,4 @@
+import 'package:admin_app/Models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,6 +15,277 @@ class AppConstants {
   Color appWhite = const Color(0xFFFFFFFF);
   Color appDarkWhite = const Color(0xFFF5F5F5);
   Color appGrey = const Color(0xFFEAEAEA);
+}
+
+class AppTable extends StatelessWidget {
+  const AppTable({super.key, required this.snapshot});
+  final AsyncSnapshot<List<User>> snapshot;
+
+  @override
+  Widget build(BuildContext context) {
+    print(snapshot.connectionState);
+    return snapshot.hasData
+        ? Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width < 1300
+                    ? MediaQuery.of(context).size.width - 100
+                    : MediaQuery.of(context).size.width - 330,
+                padding: EdgeInsets.only(bottom: 12),
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(width: 1, color: Colors.grey))),
+                child: Table(
+                  // border: TableBorder.all(
+                  //     color: Colors.black,
+                  //     style: BorderStyle.solid,
+                  //     width: 2),
+                  columnWidths: {
+                    0: FixedColumnWidth(
+                        (MediaQuery.of(context).size.width / 150)),
+                    1: FixedColumnWidth(
+                        (MediaQuery.of(context).size.width / 12)),
+                    2: FixedColumnWidth(
+                        (MediaQuery.of(context).size.width / 15)),
+                    3: FixedColumnWidth(
+                        (MediaQuery.of(context).size.width / 15)),
+                    4: FixedColumnWidth(
+                        (MediaQuery.of(context).size.width / 18)),
+                    5: FixedColumnWidth(
+                        (MediaQuery.of(context).size.width / 8)),
+                    6: FixedColumnWidth(
+                        (MediaQuery.of(context).size.width / 15)),
+                  },
+                  children: [
+                    TableRow(decoration: BoxDecoration(), children: [
+                      Container(
+                        padding: EdgeInsets.all(18),
+                        child: Text(
+                          "No.",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'HelveticaNeue',
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(18),
+                        child: Text(
+                          "Names",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'HelveticaNeue',
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(18),
+                        child: Text(
+                          "Surname",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'HelveticaNeue',
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(18),
+                        child: Text(
+                          "ID Number",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'HelveticaNeue',
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(18),
+                        child: Text(
+                          "Mobile Number",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'HelveticaNeue',
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(18),
+                        child: Text(
+                          "Email Address",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'HelveticaNeue',
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(18),
+                        child: Text(
+                          "Account Status",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'HelveticaNeue',
+                          ),
+                        ),
+                      ),
+                    ]),
+                  ],
+                ),
+              ),
+              Container(
+                height: 300,
+                width: MediaQuery.of(context).size.width < 1300
+                    ? MediaQuery.of(context).size.width - 100
+                    : MediaQuery.of(context).size.width - 330,
+                child: SingleChildScrollView(
+                  child: Table(
+                    // border: TableBorder.all(
+                    //     color: Colors.black,
+                    //     style: BorderStyle.solid,
+                    //     width: 2),
+                    columnWidths: <int, TableColumnWidth>{
+                      0: FixedColumnWidth(
+                          (MediaQuery.of(context).size.width / 150)),
+                      1: FixedColumnWidth(
+                          (MediaQuery.of(context).size.width / 12)),
+                      2: FixedColumnWidth(
+                          (MediaQuery.of(context).size.width / 15)),
+                      3: FixedColumnWidth(
+                          (MediaQuery.of(context).size.width / 15)),
+                      4: FixedColumnWidth(
+                          (MediaQuery.of(context).size.width / 18)),
+                      5: FixedColumnWidth(
+                          (MediaQuery.of(context).size.width / 8)),
+                      6: FixedColumnWidth(
+                          (MediaQuery.of(context).size.width / 15)),
+                    },
+                    children:
+                        List<TableRow>.generate(snapshot.data!.length, (index) {
+                      return TableRow(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom:
+                                  BorderSide(width: 0.5, color: Colors.grey),
+                            ),
+                          ),
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(18),
+                              child: Text(
+                                (index + 1).toString(),
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontFamily: 'Raleway',
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(top: 20, left: 10),
+                              child: Text(
+                                snapshot.data![index].names,
+                                style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontFamily: 'HelveticaNeue',
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(top: 20, left: 10),
+                              child: Text(
+                                snapshot.data![index].surname,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontFamily: 'Raleway',
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(top: 20, left: 10),
+                              child: Text(
+                                snapshot.data![index].idNumber,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontFamily: 'HelveticaNeue',
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(top: 20, left: 10),
+                              child: Text(
+                                "0${snapshot.data![index].cellphoneNumber}",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontFamily: 'Raleway',
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(top: 20, left: 10),
+                              child: Text(
+                                snapshot.data![index].emailaddress,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontFamily: 'HelveticaNeue',
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(15),
+                              child: Center(
+                                child: TextButton(
+                                  style: TextButton.styleFrom(
+                                    minimumSize: Size(100, 40),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    backgroundColor: snapshot
+                                                .data![index].accountStatus ==
+                                            'Unverified'
+                                        ? const Color.fromARGB(90, 255, 193, 7)
+                                        : Color.fromARGB(90, 7, 255, 81),
+                                  ),
+                                  onPressed: () {},
+                                  child: Text(
+                                    snapshot.data![index].accountStatus,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.black,
+                                      fontFamily: 'HelveticaNeue',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ]);
+                    }),
+                  ),
+                ),
+              )
+            ],
+          )
+        : Center(child: CircularProgressIndicator());
+  }
 }
 
 class AppBlueButton extends StatefulWidget {

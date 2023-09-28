@@ -120,14 +120,17 @@ class _HomePageState extends State<HomePage>
           SizedBox(width: MediaQuery.of(context).size.width / 4),
           const SizedBox(width: 32),
           Padding(
-            padding: const EdgeInsets.only(top: 20, right: 5),
-            child: Text(
-              '${context.read<AdminManager>().adminData.names} ${context.read<AdminManager>().adminData.surname}',
-              textAlign: TextAlign.center,
+            padding: const EdgeInsets.only(top: 20, right: 10),
+            child: InkWell(
+              onTap: () {},
+              child: Text(
+                '${context.read<AdminManager>().adminData.names} ${context.read<AdminManager>().adminData.surname}',
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
-          Container(
-            child: const CircleAvatar(),
+          const InkWell(
+            child: CircleAvatar(),
           ),
           const SizedBox(width: 32),
           TextButton(
@@ -146,7 +149,7 @@ class _HomePageState extends State<HomePage>
                   child: Container(
                       margin: const EdgeInsets.all(0),
                       height: MediaQuery.of(context).size.height,
-                      width: 300,
+                      width: 250,
                       color: AppConstants().appDarkWhite,
                       child: listDrawerItems(false)),
                 ),
@@ -155,7 +158,7 @@ class _HomePageState extends State<HomePage>
             child: SizedBox(
               width: MediaQuery.of(context).size.width < 1232
                   ? MediaQuery.of(context).size.width - 20
-                  : MediaQuery.of(context).size.width - 320,
+                  : MediaQuery.of(context).size.width - 270,
               child: TabBarView(
                 physics: const NeverScrollableScrollPhysics(),
                 controller: tabController,
