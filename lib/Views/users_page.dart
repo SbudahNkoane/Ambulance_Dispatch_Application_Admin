@@ -1,4 +1,5 @@
 import 'package:admin_app/View_Models/user_management.dart';
+import 'package:admin_app/Views/users_table.dart';
 import 'package:admin_app/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ class UsersScreen extends StatefulWidget {
 }
 
 class _UsersScreenState extends State<UsersScreen> {
+  int index = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -33,157 +35,230 @@ class _UsersScreenState extends State<UsersScreen> {
                 SizedBox(
                   height: 100,
                   width: 200,
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
+                  child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        index = 0;
+                      });
+                    },
+                    child: Card(
+                      elevation: index == 0 ? 10 : 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      color: AppConstants().appDarkWhite,
+                      child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: FutureBuilder(
+                            future: context.read<UserManager>().getAllUsers(),
+                            builder: (context, snapshot) {
+                              return snapshot.hasData
+                                  ? Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        CircleAvatar(),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text('${snapshot.data!.length}'),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text('Total users'),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  : Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        CircularProgressIndicator(),
+                                      ],
+                                    );
+                            },
+                          )),
                     ),
-                    color: AppConstants().appDarkWhite,
-                    child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FutureBuilder(
-                          builder: (context, snapshot) {
-                            return const Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircleAvatar(),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('500'),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text('Total users'),
-                                  ],
-                                ),
-                              ],
-                            );
-                          },
-                        )),
                   ),
                 ),
                 SizedBox(
                   height: 100,
                   width: 200,
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    color: AppConstants().appDarkWhite,
-                    child: Padding(
+                  child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        index = 1;
+                      });
+                    },
+                    child: Card(
+                      elevation: index == 1 ? 10 : 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      color: AppConstants().appDarkWhite,
+                      child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: FutureBuilder(
+                          future:
+                              context.read<UserManager>().getUnverifiedUsers(),
                           builder: (context, snapshot) {
-                            return const Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircleAvatar(),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('500'),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text('Unverified users'),
-                                  ],
-                                ),
-                              ],
-                            );
+                            return snapshot.hasData
+                                ? Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      CircleAvatar(),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('${snapshot.data!.length}'),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text('Unverified users'),
+                                        ],
+                                      ),
+                                    ],
+                                  )
+                                : Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      CircularProgressIndicator(),
+                                    ],
+                                  );
                           },
-                        )),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(
                   height: 100,
                   width: 200,
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
+                  child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        index = 2;
+                      });
+                    },
+                    child: Card(
+                      elevation: index == 2 ? 10 : 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      color: AppConstants().appDarkWhite,
+                      child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: FutureBuilder(
+                            future:
+                                context.read<UserManager>().getVerifiedUsers(),
+                            builder: (context, snapshot) {
+                              return snapshot.hasData
+                                  ? Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        CircleAvatar(),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text('${snapshot.data!.length}'),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text('Verified users'),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  : Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        CircularProgressIndicator(),
+                                      ],
+                                    );
+                            },
+                          )),
                     ),
-                    color: AppConstants().appDarkWhite,
-                    child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FutureBuilder(
-                          builder: (context, snapshot) {
-                            return const Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircleAvatar(),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('500'),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text('Verified users'),
-                                  ],
-                                ),
-                              ],
-                            );
-                          },
-                        )),
                   ),
                 ),
-                SizedBox(
-                  height: 100,
-                  width: 200,
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    color: AppConstants().appDarkWhite,
-                    child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FutureBuilder(
-                          builder: (context, snapshot) {
-                            return const Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircleAvatar(),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('500'),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text('Disabled users'),
-                                  ],
-                                ),
-                              ],
-                            );
-                          },
-                        )),
-                  ),
-                ),
+                // SizedBox(
+                //   height: 100,
+                //   width: 200,
+                //   child: Card(
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(5),
+                //     ),
+                //     color: AppConstants().appDarkWhite,
+                //     child: Padding(
+                //         padding: const EdgeInsets.all(8.0),
+                //         child: FutureBuilder(
+                //           builder: (context, snapshot) {
+                //             return const Row(
+                //               crossAxisAlignment: CrossAxisAlignment.center,
+                //               mainAxisAlignment: MainAxisAlignment.center,
+                //               children: [
+                //                 CircleAvatar(),
+                //                 SizedBox(
+                //                   width: 20,
+                //                 ),
+                //                 Column(
+                //                   mainAxisAlignment: MainAxisAlignment.center,
+                //                   crossAxisAlignment: CrossAxisAlignment.start,
+                //                   children: [
+                //                     Text('500'),
+                //                     SizedBox(
+                //                       height: 10,
+                //                     ),
+                //                     Text('Disabled users'),
+                //                   ],
+                //                 ),
+                //               ],
+                //             );
+                //           },
+                //         )),
+                //   ),
+                // ),
               ],
             ),
+            SizedBox(
+              height: 23,
+            ),
             FutureBuilder(
-              future: context.read<UserManager>().getAllUsers(),
+              future: index == 0
+                  ? context.read<UserManager>().getAllUsers()
+                  : index == 1
+                      ? context.read<UserManager>().getUnverifiedUsers()
+                      : index == 2
+                          ? context.read<UserManager>().getVerifiedUsers()
+                          : context.read<UserManager>().getAllUsers(),
               builder: (context, snapshot) {
-                return AppTable(
+                return UsersTable(
                   snapshot: snapshot,
                 );
               },

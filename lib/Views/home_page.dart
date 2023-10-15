@@ -2,7 +2,7 @@ import 'package:admin_app/View_Models/admin_management.dart';
 import 'package:admin_app/Views/ambulances_page.dart';
 import 'package:admin_app/Views/dashboard_page.dart';
 import 'package:admin_app/Views/paramedics_page.dart';
-import 'package:admin_app/Views/tickets_page.dart';
+import 'package:admin_app/Views/pending_tickets_page.dart';
 import 'package:admin_app/Views/users_page.dart';
 import 'package:admin_app/app_constants.dart';
 import 'package:admin_app/main.dart';
@@ -66,57 +66,6 @@ class _HomePageState extends State<HomePage>
           ],
         ),
         actions: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(10),
-            width: MediaQuery.of(context).size.width / 3,
-            child: SearchAnchor(
-              builder: (context, controller) {
-                return SearchBar(
-                  elevation: MaterialStateProperty.all(1),
-                  onTap: () {
-                    controller.openView();
-                  },
-                  onChanged: (value) {
-                    controller.openView();
-                  },
-                  controller: controller,
-                  hintText: tabController.index == 1
-                      ? 'Search User'
-                      : tabController.index == 2
-                          ? 'Search Paramedic'
-                          : tabController.index == 3
-                              ? 'Search Ambulance'
-                              : tabController.index == 4
-                                  ? 'Search Ticket'
-                                  : 'Search',
-                  leading: const Icon(Icons.search),
-                );
-              },
-              suggestionsBuilder: (context, controller) {
-                return List<ListTile>.generate(5, (index) {
-                  final String item = 'item $index';
-                  return ListTile(
-                    title: Text(item),
-                    onTap: () {
-                      setState(() {
-                        controller.closeView(item);
-                      });
-                    },
-                  );
-                });
-              },
-            ),
-            // Note: Same code is applied for the TextFormField as well
-            //     TextField(
-            //   decoration: InputDecoration(
-            //     enabledBorder: OutlineInputBorder(
-            //       borderSide: BorderSide(
-            //           width: 3, color: Colors.greenAccent), //<-- SEE HERE
-            //       borderRadius: BorderRadius.circular(50.0),
-            //     ),
-            //   ),
-            // )
-          ),
           SizedBox(width: MediaQuery.of(context).size.width / 4),
           const SizedBox(width: 32),
           Padding(
@@ -165,9 +114,9 @@ class _HomePageState extends State<HomePage>
                 children: const [
                   DashboardScreen(),
                   UsersScreen(),
-                  AmbulancesScreen(),
-                  TicketsScreen(),
                   ParamedicsScreen(),
+                  AmbulancesScreen(),
+                  PendingTicketsPage(),
                 ],
               ),
             ),

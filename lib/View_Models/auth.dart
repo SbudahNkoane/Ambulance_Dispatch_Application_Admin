@@ -25,12 +25,6 @@ class Authentication with ChangeNotifier {
     return null;
   }
 
-  Future<String> updateProfilePicture() async {
-    String state = 'OK';
-
-    return state;
-  }
-
 //====== Check if user exist ======
 
   //========= LOGIN USER ==========

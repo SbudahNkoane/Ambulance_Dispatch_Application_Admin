@@ -1,3 +1,7 @@
+import 'package:admin_app/Routes/routes.dart';
+import 'package:admin_app/View_Models/ambulance_management.dart';
+import 'package:admin_app/View_Models/paramedic_management.dart';
+import 'package:admin_app/View_Models/ticket_management.dart';
 import 'package:admin_app/View_Models/user_management.dart';
 import 'package:admin_app/app_constants.dart';
 import 'package:flutter/material.dart';
@@ -85,30 +89,44 @@ class DashboardScreen extends StatelessWidget {
                       child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: FutureBuilder(
+                            future: context
+                                .read<ParamedicManager>()
+                                .getAllParamedics(),
                             builder: (context, snapshot) {
-                              return const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('Total paramedics'),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text('500'),
-                                      SizedBox(
-                                        width: 50,
-                                      ),
-                                      Icon(
-                                        Icons.person_pin,
-                                        size: 50,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              );
+                              return snapshot.hasData
+                                  ? Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text('Total paramedics'),
+                                        SizedBox(
+                                          height: 30,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text('${snapshot.data!.length}'),
+                                            SizedBox(
+                                              width: 50,
+                                            ),
+                                            Icon(
+                                              Icons.person_pin,
+                                              size: 50,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  : Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        CircularProgressIndicator(),
+                                      ],
+                                    );
                             },
                           )),
                     ),
@@ -125,30 +143,44 @@ class DashboardScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: FutureBuilder(
                             builder: (context, snapshot) {
-                              return const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('Total Ambulances'),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text('500'),
-                                      SizedBox(
-                                        width: 50,
-                                      ),
-                                      Icon(
-                                        Icons.person_pin,
-                                        size: 50,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              );
+                              return snapshot.hasData
+                                  ? Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text('Total Ambulances'),
+                                        SizedBox(
+                                          height: 30,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text('${snapshot.data!.length}'),
+                                            SizedBox(
+                                              width: 50,
+                                            ),
+                                            Icon(
+                                              Icons.person_pin,
+                                              size: 50,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  : Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        CircularProgressIndicator(),
+                                      ],
+                                    );
                             },
+                            future: context
+                                .read<AmbulanceManager>()
+                                .getAllAmbulances(),
                           )),
                     ),
                   ),
@@ -163,30 +195,42 @@ class DashboardScreen extends StatelessWidget {
                       child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: FutureBuilder(
+                            future: context.read<TicketManager>().getAllUsers(),
                             builder: (context, snapshot) {
-                              return const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('Total tickets'),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text('500'),
-                                      SizedBox(
-                                        width: 50,
-                                      ),
-                                      Icon(
-                                        Icons.person_pin,
-                                        size: 50,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              );
+                              return snapshot.hasData
+                                  ? Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text('Total tickets'),
+                                        SizedBox(
+                                          height: 30,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text('${snapshot.data!.length}'),
+                                            SizedBox(
+                                              width: 50,
+                                            ),
+                                            Icon(
+                                              Icons.person_pin,
+                                              size: 50,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  : Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        CircularProgressIndicator(),
+                                      ],
+                                    );
                             },
                           )),
                     ),
@@ -207,9 +251,10 @@ class DashboardScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: FutureBuilder(
+                          future: null,
                           builder: (context, snapshot) {
                             return ListView(
-                              children: const [
+                              children: [
                                 Text('Ambulance Stats'),
                                 ListTile(
                                   leading: CircleAvatar(
@@ -217,7 +262,8 @@ class DashboardScreen extends StatelessWidget {
                                     backgroundColor: Colors.green,
                                   ),
                                   title: Text('Available'),
-                                  trailing: Text('20'),
+                                  trailing: Text(
+                                      '${context.read<AmbulanceManager>().availableAmbulances.length}'),
                                 ),
                                 Divider(),
                                 ListTile(
@@ -227,7 +273,8 @@ class DashboardScreen extends StatelessWidget {
                                         Color.fromARGB(255, 255, 0, 0),
                                   ),
                                   title: Text('Unvailable'),
-                                  trailing: Text('60'),
+                                  trailing: Text(
+                                      '${context.read<AmbulanceManager>().unAvailableAmbulances.length}'),
                                 ),
                                 Divider(),
                                 ListTile(
@@ -237,7 +284,8 @@ class DashboardScreen extends StatelessWidget {
                                         Color.fromARGB(255, 255, 168, 54),
                                   ),
                                   title: Text('On Dispatch'),
-                                  trailing: Text('50'),
+                                  trailing: Text(
+                                      '${context.read<AmbulanceManager>().busyAmbulances.length}'),
                                 ),
                               ],
                             );
@@ -256,42 +304,47 @@ class DashboardScreen extends StatelessWidget {
                       color: AppConstants().appDarkWhite,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: FutureBuilder(
-                          builder: (context, snapshot) {
-                            return ListView(
-                              children: const [
-                                Text('User Stats'),
-                                ListTile(
-                                  leading: CircleAvatar(
-                                    radius: 14,
-                                    backgroundColor: Colors.green,
-                                  ),
-                                  title: Text('Verified'),
-                                  trailing: Text('20'),
-                                ),
-                                Divider(),
-                                ListTile(
-                                  leading: CircleAvatar(
-                                    radius: 14,
-                                    backgroundColor:
-                                        Color.fromARGB(255, 255, 168, 54),
-                                  ),
-                                  title: Text('Unverified'),
-                                  trailing: Text('45'),
-                                ),
-                                Divider(),
-                                ListTile(
-                                  leading: CircleAvatar(
-                                    radius: 14,
-                                    backgroundColor:
-                                        Color.fromARGB(255, 255, 0, 0),
-                                  ),
-                                  title: Text('Disabled'),
-                                  trailing: Text('33'),
-                                ),
-                              ],
-                            );
-                          },
+                        child: ListView(
+                          children: [
+                            Text('Tickets Stats'),
+                            ListTile(
+                              subtitle: TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pushNamed(
+                                      AppRouteManager.adminTicketsPage);
+                                },
+                                child: Text('Manage Tickets'),
+                              ),
+                              leading: CircleAvatar(
+                                radius: 14,
+                                backgroundColor: Colors.green,
+                              ),
+                              title: Text('Open'),
+                              trailing: Text(
+                                  '${context.read<TicketManager>().openTickets.length}'),
+                            ),
+                            Divider(),
+                            ListTile(
+                              leading: CircleAvatar(
+                                radius: 14,
+                                backgroundColor:
+                                    Color.fromARGB(255, 255, 168, 54),
+                              ),
+                              title: Text('Pending'),
+                              trailing: Text(
+                                  '${context.read<TicketManager>().pendingTickets.length}'),
+                            ),
+                            Divider(),
+                            ListTile(
+                              leading: CircleAvatar(
+                                radius: 14,
+                                backgroundColor: Color.fromARGB(255, 255, 0, 0),
+                              ),
+                              title: Text('Closed'),
+                              trailing: Text(
+                                  '${context.read<TicketManager>().closedTickets.length}'),
+                            ),
+                          ],
                         ),
                       ),
                     ),

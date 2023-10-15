@@ -5,9 +5,11 @@ class Admin {
   final String idNumber;
   final String emailaddress;
   final String role;
-  final int cellphoneNumber;
+  final String cellphoneNumber;
+  final String? profilePicture;
 
   Admin({
+    this.profilePicture,
     required this.userId,
     required this.names,
     required this.surname,
@@ -25,15 +27,17 @@ class Admin {
         'Email_Address': emailaddress,
         'Role': role,
         'Phone_Number': cellphoneNumber,
+        'Profile_Picture': profilePicture,
       };
 
   static Admin fromJson(Map<dynamic, dynamic>? json) => Admin(
-        cellphoneNumber: json!['Phone_Number'] as int,
+        cellphoneNumber: json!['Phone_Number'] as String,
         emailaddress: json['Email_Address'] as String,
         role: json['Role'] as String,
         idNumber: json['ID_Number'] as String,
         names: json['Names'] as String,
         surname: json['Surname'] as String,
         userId: json['User_Id'] as String?,
+        profilePicture: json['Profile_Picture'] as String?,
       );
 }

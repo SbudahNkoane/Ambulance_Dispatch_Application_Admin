@@ -28,10 +28,15 @@ class _SplashScreenState extends State<SplashScreen> {
     return const Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
       body: Center(
-        child: CircleAvatar(
-          backgroundColor: Colors.transparent,
-          radius: 150,
-          foregroundImage: AssetImage('assets/images/logo.png'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              backgroundColor: Colors.transparent,
+              radius: 150,
+              foregroundImage: AssetImage('assets/images/logo.png'),
+            ),
+          ],
         ),
       ),
     );

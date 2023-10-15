@@ -2,6 +2,8 @@ import 'package:admin_app/Views/home_page.dart';
 import 'package:admin_app/Views/login_page.dart';
 import 'package:admin_app/Views/reset_password.dart';
 import 'package:admin_app/Views/splash_screen.dart';
+import 'package:admin_app/Views/pending_tickets_page.dart';
+import 'package:admin_app/Views/user_verification_page.dart';
 import 'package:flutter/material.dart';
 
 class AppRouteManager {
@@ -11,6 +13,8 @@ class AppRouteManager {
   static const String registerPage = '/Register';
   static const String passwordResetPage = '/ResetPassword';
   static const String adminHomePage = '/HomePage';
+  static const String adminTicketsPage = '/TicketsPage';
+  static const String adminUserVerificationPage = '/UserVerificationPage';
 
   AppRouteManager._();
 
@@ -28,19 +32,19 @@ class AppRouteManager {
         return MaterialPageRoute(
           builder: (context) => const PasswordResetPage(),
         );
-      // //========================== User Screens ===========================================
+      // //========================== Admin Screens ===========================================
       case adminHomePage:
         return MaterialPageRoute(
           builder: (context) => const HomePage(),
         );
-      // case userTicketsPage:
-      //   return MaterialPageRoute(
-      //     builder: (context) => const UserTicketsPage(),
-      //   );
-      // case userAccountPage:
-      //   return MaterialPageRoute(
-      //     builder: (context) => const UserAccountPage(),
-      //   );
+      case adminUserVerificationPage:
+        return MaterialPageRoute(
+          builder: (context) => const UserVerificationScreen(),
+        );
+      case adminTicketsPage:
+        return MaterialPageRoute(
+          builder: (context) => const PendingTicketsPage(),
+        );
       // case userMenuPage:
       //   return MaterialPageRoute(
       //     builder: (context) => const UserMenuPage(),

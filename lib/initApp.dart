@@ -2,6 +2,8 @@
 
 import 'package:admin_app/Routes/routes.dart';
 import 'package:admin_app/View_Models/admin_management.dart';
+import 'package:admin_app/View_Models/ambulance_management.dart';
+import 'package:admin_app/View_Models/ticket_management.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -13,19 +15,24 @@ class InitApp {
     if (kIsWeb) {
       await Firebase.initializeApp(
         options: const FirebaseOptions(
-            authDomain: "ambulance-dispatch-syste-c3397.firebaseapp.com",
-            storageBucket: "ambulance-dispatch-syste-c3397.appspot.com",
-            databaseURL:
-                "https://ambulance-dispatch-syste-c3397-default-rtdb.firebaseio.com",
-            apiKey: "AIzaSyBONKBvXus1aY3ZycS-E3Qhl0n9yjgA4pc",
-            appId: "1:465560543092:web:007f4ee3e335cf26c15621",
-            messagingSenderId: "465560543092",
-            projectId: "ambulance-dispatch-syste-c3397"),
+          apiKey: "AIzaSyBiZdF9u4h4ghH0mVQRBLhJNeZ_9CPxEEw",
+          authDomain: "ambulance-dispatch-401323.firebaseapp.com",
+          projectId: "ambulance-dispatch-401323",
+          storageBucket: "ambulance-dispatch-401323.appspot.com",
+          messagingSenderId: "314167111153",
+          appId: "1:314167111153:web:7dbab69c2d85712754e850",
+        ),
       );
     }
     await context
         .read<AdminManager>()
-        .getCurrentAdminData('wKoddJUb3ERckTWEXipYFlcvBgM2');
-    Navigator.of(context).popAndPushNamed(AppRouteManager.adminHomePage);
+        .getCurrentAdminData('EXjjEmPKqjULLoh82jcsxgSUPiv2');
+    // await context.read<AmbulanceManager>().getAvailableAmbulances();
+    // await context.read<AmbulanceManager>().getBusyAmbulances();
+    // await context.read<AmbulanceManager>().getUnAvailableAmbulances();
+    await context.read<TicketManager>().getclosedTickets();
+    await context.read<TicketManager>().getopenTickets();
+    await context.read<TicketManager>().getpendingTickets();
+    Navigator.of(context).popAndPushNamed(AppRouteManager.adminTicketsPage);
   }
 }
