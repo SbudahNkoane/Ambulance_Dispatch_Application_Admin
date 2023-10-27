@@ -31,7 +31,7 @@ class Paramedic {
       };
 
   static Paramedic fromJson(Map<dynamic, dynamic>? json) => Paramedic(
-        cellphoneNumber: json!['CellPhone_Number'] as String,
+        cellphoneNumber: json!['Phone_Number'] as String,
         emailaddress: json['Email_Address'] as String,
         role: json['Role'] as String,
         idNumber: json['ID_Number'] as String,

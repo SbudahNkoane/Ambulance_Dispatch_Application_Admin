@@ -197,7 +197,7 @@ class UsersTable extends StatelessWidget {
                                   snapshot.data![index].accountStatus ==
                                           'Verified'
                                       ? Icon(
-                                          Icons.check_circle,
+                                          Icons.verified,
                                           color: AppConstants().appGreen,
                                           size: 10,
                                         )
@@ -253,7 +253,7 @@ class UsersTable extends StatelessWidget {
                               padding: const EdgeInsets.all(15),
                               child: Center(
                                 child: snapshot.data![index].accountStatus ==
-                                        'Unverified'
+                                        'Not Verified'
                                     ? TextButton(
                                         style: TextButton.styleFrom(
                                           minimumSize: const Size(100, 40),

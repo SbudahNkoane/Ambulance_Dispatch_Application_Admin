@@ -1,12 +1,8 @@
-import 'package:admin_app/Models/user.dart';
-import 'package:admin_app/Routes/routes.dart';
-import 'package:admin_app/View_Models/user_management.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 FirebaseFirestore database = FirebaseFirestore.instance;
 FirebaseAuth authentication = FirebaseAuth.instance;

@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:js_util';
-
 import 'package:admin_app/Models/user.dart';
 import 'package:admin_app/View_Models/admin_management.dart';
 import 'package:admin_app/View_Models/user_management.dart';
@@ -175,11 +173,26 @@ class _UserVerificationScreenState extends State<UserVerificationScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text('Selfie'),
-                                Image.asset(
-                                  'assets/images/med.png',
-                                  height: 400,
-                                  width: 400,
-                                ),
+                                userList[context
+                                                .read<UserManager>()
+                                                .clickedUser]
+                                            .verificationPicture !=
+                                        null
+                                    ? Image.network(
+                                        '${userList[context.read<UserManager>().clickedUser].idDocument['ID_Front']}',
+                                        loadingBuilder:
+                                            (context, child, loadingProgress) {
+                                          return Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        },
+                                        height: 400,
+                                        width: 400,
+                                      )
+                                    : SizedBox(
+                                        height: 400,
+                                        width: 400,
+                                      ),
                               ],
                             ),
                           ),
@@ -191,17 +204,47 @@ class _UserVerificationScreenState extends State<UserVerificationScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text('ID Front'),
-                                Image.asset(
-                                  'assets/images/med.png',
-                                  height: 300,
-                                  width: 300,
-                                ),
+                                userList[context
+                                                .read<UserManager>()
+                                                .clickedUser]
+                                            .idDocument['ID_Front'] !=
+                                        null
+                                    ? Image.network(
+                                        '${userList[context.read<UserManager>().clickedUser].idDocument['ID_Front']}',
+                                        loadingBuilder:
+                                            (context, child, loadingProgress) {
+                                          return Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        },
+                                        height: 300,
+                                        width: 300,
+                                      )
+                                    : SizedBox(
+                                        height: 300,
+                                        width: 300,
+                                      ),
                                 Text('ID Back'),
-                                Image.asset(
-                                  'assets/images/med.png',
-                                  height: 300,
-                                  width: 300,
-                                )
+                                userList[context
+                                                .read<UserManager>()
+                                                .clickedUser]
+                                            .idDocument['ID_Back'] !=
+                                        null
+                                    ? Image.network(
+                                        '${userList[context.read<UserManager>().clickedUser].idDocument['ID_Back']}',
+                                        loadingBuilder:
+                                            (context, child, loadingProgress) {
+                                          return Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        },
+                                        height: 300,
+                                        width: 300,
+                                      )
+                                    : SizedBox(
+                                        height: 300,
+                                        width: 300,
+                                      ),
                               ],
                             ),
                           ),
@@ -209,7 +252,7 @@ class _UserVerificationScreenState extends State<UserVerificationScreen> {
                       ),
                       userList[context.read<UserManager>().clickedUser]
                                   .accountStatus ==
-                              'Unverified'
+                              'Not Verified'
                           ? AppBlueButton(
                               onPressed: () async {
                                 await context
@@ -218,7 +261,7 @@ class _UserVerificationScreenState extends State<UserVerificationScreen> {
                                         userID: userList[context
                                                 .read<UserManager>()
                                                 .clickedUser]
-                                            .userID,
+                                            .userID!,
                                         verifyer: context
                                             .read<AdminManager>()
                                             .adminData,

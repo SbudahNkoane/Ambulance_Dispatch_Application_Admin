@@ -2,10 +2,13 @@
 
 import 'package:admin_app/Routes/routes.dart';
 import 'package:admin_app/View_Models/admin_management.dart';
+import 'package:admin_app/View_Models/ambulance_management.dart';
 import 'package:admin_app/View_Models/auth.dart';
+import 'package:admin_app/View_Models/paramedic_management.dart';
+import 'package:admin_app/View_Models/ticket_management.dart';
 import 'package:admin_app/Views/home_page.dart';
 import 'package:admin_app/app_constants.dart';
-import 'package:admin_app/main.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
   late TextEditingController usernameController;
   late TextEditingController passwordController;
+  bool _hideText = false;
 
   @override
   void initState() {
@@ -52,6 +56,14 @@ class _LoginPageState extends State<LoginPage> {
                   AppConstants().logoWithWhiteBackground,
                   height: 170,
                   width: 170,
+                ),
+                Text(
+                  "Admin Dashboard",
+                  style: GoogleFonts.moul(fontSize: 16, color: Colors.blue),
+                  // TextStyle(
+                  //     letterSpacing: 1,
+                  //     fontSize: 40,
+                  //     fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 20,
@@ -87,8 +99,8 @@ class _LoginPageState extends State<LoginPage> {
                         height: 10,
                       ),
                       AppTextField(
-                        suffixIcon: Icons.remove_red_eye_rounded,
-                        hideText: true,
+                        suffixIcon: null,
+                        hideText: _hideText ? false : true,
                         controller: passwordController,
                         labelText: 'Password',
                         prefixIcon: Icons.password,
@@ -122,14 +134,13 @@ class _LoginPageState extends State<LoginPage> {
                         text: 'Sign In',
                         onPressed: () async {
                           if (_loginFormKey.currentState!.validate()) {
-                            final result =
-                                await context.read<Authentication>().loginAdmin(
-                                      usernameController.text.trim(),
-                                      passwordController.text.trim(),
-                                    );
+                            await context.read<Authentication>().loginAdmin(
+                                  usernameController.text.trim(),
+                                  passwordController.text.trim(),
+                                );
                             if (context.read<Authentication>().currentUser ==
                                 null) {
-                              print('Verify email first');
+                              print('Could not log you in');
                             } else {
                               await context
                                   .read<AdminManager>()
@@ -137,6 +148,30 @@ class _LoginPageState extends State<LoginPage> {
                                       .read<Authentication>()
                                       .currentUser!
                                       .uid);
+                              await context
+                                  .read<AmbulanceManager>()
+                                  .getAllAmbulances();
+                              await context
+                                  .read<AmbulanceManager>()
+                                  .getAvailableAmbulances();
+                              await context
+                                  .read<AmbulanceManager>()
+                                  .getBusyAmbulances();
+                              await context
+                                  .read<AmbulanceManager>()
+                                  .getUnAvailableAmbulances();
+                              await context
+                                  .read<TicketManager>()
+                                  .getclosedTickets();
+                              await context
+                                  .read<TicketManager>()
+                                  .getopenTickets();
+                              await context
+                                  .read<TicketManager>()
+                                  .getpendingTickets();
+                              await context
+                                  .read<ParamedicManager>()
+                                  .getAllParamedics();
                               Navigator.of(context).pushAndRemoveUntil(
                                   MaterialPageRoute<void>(
                                     builder: (BuildContext context) =>

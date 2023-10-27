@@ -25,8 +25,6 @@ class Authentication with ChangeNotifier {
     return null;
   }
 
-//====== Check if user exist ======
-
   //========= LOGIN USER ==========
   Future<String> loginAdmin(String email, String password) async {
     String state = 'OK';

@@ -1,11 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:admin_app/Routes/routes.dart';
 import 'package:admin_app/View_Models/admin_management.dart';
 import 'package:admin_app/View_Models/auth.dart';
 import 'package:admin_app/Views/home_page.dart';
 import 'package:admin_app/app_constants.dart';
-import 'package:admin_app/main.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';

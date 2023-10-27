@@ -3,8 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Ambulance {
   final String? ambulanceId;
   final String numberPlate;
-  final String? paramedics;
-  final String managedBy;
+  final List<dynamic>? paramedics;
+  final String? managedBy;
   final String status;
   final GeoPoint realTimeLocation;
   Ambulance({
@@ -16,6 +16,8 @@ class Ambulance {
     required this.realTimeLocation,
   });
   Map<String, Object?> toJson() => {
+        'Paramedics': paramedics,
+        'Status': status,
         'Number_Plate': numberPlate,
         'Managed_By': managedBy,
         'RealTime_Location': realTimeLocation,
@@ -24,7 +26,7 @@ class Ambulance {
   static Ambulance fromJson(Map<dynamic, dynamic>? json) => Ambulance(
         ambulanceId: json!['Ambulance_Id'] as String?,
         numberPlate: json['Number_Plate'] as String,
-        managedBy: json['Managed_By'] as String,
+        managedBy: json['Managed_By'] as String?,
         realTimeLocation: json['RealTime_Location'] as GeoPoint,
         status: json['Status'] as String,
       );

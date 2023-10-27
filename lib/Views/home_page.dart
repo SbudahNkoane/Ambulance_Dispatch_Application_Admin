@@ -1,11 +1,15 @@
 import 'package:admin_app/View_Models/admin_management.dart';
+import 'package:admin_app/View_Models/ambulance_management.dart';
+import 'package:admin_app/View_Models/auth.dart';
+import 'package:admin_app/View_Models/ticket_management.dart';
 import 'package:admin_app/Views/ambulances_page.dart';
 import 'package:admin_app/Views/dashboard_page.dart';
-import 'package:admin_app/Views/paramedics_page.dart';
-import 'package:admin_app/Views/pending_tickets_page.dart';
+import 'package:admin_app/Views/login_page.dart';
+
+import 'package:admin_app/Views/tickets_page.dart';
 import 'package:admin_app/Views/users_page.dart';
 import 'package:admin_app/app_constants.dart';
-import 'package:admin_app/main.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +30,7 @@ class _HomePageState extends State<HomePage>
   void initState() {
     super.initState();
 
-    tabController = TabController(vsync: this, length: 5, initialIndex: 0)
+    tabController = TabController(vsync: this, length: 4, initialIndex: 0)
       ..addListener(() {
         setState(() {
           active = tabController.index;
@@ -83,7 +87,18 @@ class _HomePageState extends State<HomePage>
           ),
           const SizedBox(width: 32),
           TextButton(
-            onPressed: () {},
+            onPressed: () async {
+              final result = await context.read<Authentication>().logoutUser();
+              if (result == 'OK') {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => const LoginPage(),
+                    ),
+                    (route) => false);
+              } else {
+                print(result);
+              }
+            },
             child: const Text('Sign Out'),
           ),
         ],
@@ -111,12 +126,15 @@ class _HomePageState extends State<HomePage>
               child: TabBarView(
                 physics: const NeverScrollableScrollPhysics(),
                 controller: tabController,
-                children: const [
+                children: [
                   DashboardScreen(),
                   UsersScreen(),
-                  ParamedicsScreen(),
-                  AmbulancesScreen(),
-                  PendingTicketsPage(),
+                  AmbulancesScreen(
+                    ambulances: context.read<AmbulanceManager>().allAmbulance,
+                  ),
+                  TicketsScreen(
+                    tickets: context.read<TicketManager>().allTickets,
+                  ),
                 ],
               ),
             ),
@@ -227,7 +245,7 @@ class _HomePageState extends State<HomePage>
             selected: tabController.index == 2 ? true : false,
             leading: const Icon(Icons.dashboard),
             title: const Text(
-              "Paramedics",
+              "Ambulances",
               style: TextStyle(
                 fontSize: 18,
                 fontFamily: 'HelveticaNeue',
@@ -252,31 +270,6 @@ class _HomePageState extends State<HomePage>
             selected: tabController.index == 3 ? true : false,
             leading: const Icon(Icons.dashboard),
             title: const Text(
-              "Ambulances",
-              style: TextStyle(
-                fontSize: 18,
-                fontFamily: 'HelveticaNeue',
-              ),
-            ),
-            onTap: () {
-              tabController.animateTo(3);
-              drawerStatus ? Navigator.pop(context) : print("pressed");
-            },
-          ),
-        ),
-        Container(
-          color: tabController.index == 4
-              ? AppConstants().applightBlue
-              : AppConstants().appWhite,
-          child: ListTile(
-            selectedColor: AppConstants().appDarkWhite,
-            textColor: tabController.index == 4
-                ? AppConstants().appWhite
-                : AppConstants().appBlack,
-            hoverColor: AppConstants().appDarkBlue,
-            selected: tabController.index == 4 ? true : false,
-            leading: const Icon(Icons.dashboard),
-            title: const Text(
               "Tickets",
               style: TextStyle(
                 fontSize: 18,
@@ -284,7 +277,7 @@ class _HomePageState extends State<HomePage>
               ),
             ),
             onTap: () {
-              tabController.animateTo(4);
+              tabController.animateTo(3);
               drawerStatus ? Navigator.pop(context) : print("pressed");
             },
           ),

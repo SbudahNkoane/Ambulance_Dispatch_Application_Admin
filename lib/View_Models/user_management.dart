@@ -29,13 +29,37 @@ class UserManager with ChangeNotifier {
           .where('Account_Status', isEqualTo: 'Verified')
           .get()
           .then((querySnapshot) {
-        _allVerifiedUsers = [];
-        for (var user in querySnapshot.docs) {
-          _allVerifiedUsers.add(
-            User.fromJson(
-              user.data(),
-            ),
-          );
+        db
+            .collection('User')
+            .where('Account_Status', isEqualTo: 'Verified')
+            .snapshots()
+            .listen((event) {
+          if (event.docs.isNotEmpty) {
+            _allVerifiedUsers = [];
+            for (var user in event.docs) {
+              _allVerifiedUsers.add(
+                User.fromJson(
+                  user.data(),
+                ),
+              );
+            }
+          } else {
+            _allVerifiedUsers = [];
+          }
+
+          notifyListeners();
+        });
+        if (querySnapshot.docs.isNotEmpty) {
+          _allVerifiedUsers = [];
+          for (var user in querySnapshot.docs) {
+            _allVerifiedUsers.add(
+              User.fromJson(
+                user.data(),
+              ),
+            );
+          }
+        } else {
+          _allVerifiedUsers = [];
         }
       });
     } catch (e) {
@@ -48,10 +72,25 @@ class UserManager with ChangeNotifier {
     try {
       await db
           .collection('User')
-          .where('Account_Status', isEqualTo: 'Unverified')
+          .where('Account_Status', isEqualTo: 'Not Verified')
           .get()
           .then((querySnapshot) {
         _allUnverifiedUsers = [];
+        db
+            .collection('User')
+            .where('Account_Status', isEqualTo: 'Not Verified')
+            .snapshots()
+            .listen((event) {
+          _allUnverifiedUsers = [];
+          for (var user in event.docs) {
+            _allUnverifiedUsers.add(
+              User.fromJson(
+                user.data(),
+              ),
+            );
+          }
+          notifyListeners();
+        });
         for (var user in querySnapshot.docs) {
           _allUnverifiedUsers.add(
             User.fromJson(
@@ -79,10 +118,12 @@ class UserManager with ChangeNotifier {
       required String status}) async {
     String state = 'OK';
 
-    await db.collection('User').doc(userID).set({
-      'Account_Status': status,
-      'Verified_By': verifyer.emailaddress,
-    }, SetOptions(merge: true)).onError((error, stackTrace) {
+    await db.collection('User').doc(userID).update(
+      {
+        'Account_Status': status,
+        'Verified_By': verifyer.emailaddress,
+      },
+    ).onError((error, stackTrace) {
       state = error.toString();
     });
     notifyListeners();
@@ -94,6 +135,17 @@ class UserManager with ChangeNotifier {
       final docRef = db.collection("User");
       await docRef.get().then((listOfUsers) {
         _allUsers = [];
+        docRef.snapshots().listen((event) {
+          _allUsers = [];
+          for (var user in event.docs) {
+            _allUsers.add(
+              User.fromJson(
+                user.data(),
+              ),
+            );
+          }
+          notifyListeners();
+        });
         for (var user in listOfUsers.docs) {
           _allUsers.add(
             User.fromJson(

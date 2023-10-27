@@ -6,8 +6,16 @@ import 'package:flutter/material.dart';
 class AdminManager with ChangeNotifier {
   late Admin _adminData;
   Admin get adminData => _adminData;
+  bool _showprogress = false;
+  bool get showProgress => _showprogress;
+  String _userprogresstext = "";
+  String get userProgressText => _userprogresstext;
 
   Future<Admin> getCurrentAdminData(String userID) async {
+    String result = 'OK';
+    _showprogress = true;
+    _userprogresstext = 'Dropping you off...';
+    notifyListeners();
     final docRef = database.collection("Admin").doc(userID);
     await docRef.get().then(
       (DocumentSnapshot doc) {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class AmbulanceManager with ChangeNotifier {
   List<Ambulance> _allAmbulances = [];
+  List<Ambulance> get allAmbulance => _allAmbulances;
   bool _isloading = false;
   bool get isLoading => _isloading;
   String _laodingtext = '';
@@ -22,13 +23,17 @@ class AmbulanceManager with ChangeNotifier {
       _laodingtext = 'Getting Ambulance info...';
       notifyListeners();
       await docRef.get().then((listOfUsers) {
-        _allAmbulances = [];
-        for (var user in listOfUsers.docs) {
-          _allAmbulances.add(
-            Ambulance.fromJson(
-              user.data(),
-            ),
-          );
+        if (listOfUsers.docs.isNotEmpty) {
+          _allAmbulances = [];
+          for (var user in listOfUsers.docs) {
+            _allAmbulances.add(
+              Ambulance.fromJson(
+                user.data(),
+              ),
+            );
+          }
+        } else {
+          _allAmbulances = [];
         }
       });
     } catch (error) {
@@ -47,13 +52,17 @@ class AmbulanceManager with ChangeNotifier {
           .collection("Ambulance")
           .where('Status', isEqualTo: 'Available');
       await docRef.get().then((listOfUsers) {
-        _availableAmbulances = [];
-        for (var user in listOfUsers.docs) {
-          _availableAmbulances.add(
-            Ambulance.fromJson(
-              user.data(),
-            ),
-          );
+        if (listOfUsers.docs.isNotEmpty) {
+          _availableAmbulances = [];
+          for (var user in listOfUsers.docs) {
+            _availableAmbulances.add(
+              Ambulance.fromJson(
+                user.data(),
+              ),
+            );
+          }
+        } else {
+          _availableAmbulances = [];
         }
       });
     } catch (error) {
@@ -65,17 +74,22 @@ class AmbulanceManager with ChangeNotifier {
 
   Future<List<Ambulance>> getUnAvailableAmbulances() async {
     try {
-      final docRef = database
-          .collection("Ambulance")
-          .where('Status', isEqualTo: 'Unavailable');
+      final docRef = database.collection("Ambulance").where('Status', whereIn: [
+        'Unavailable',
+        'Unoccupied',
+      ]);
       await docRef.get().then((listOfUsers) {
-        _unAvailableAmbulances = [];
-        for (var user in listOfUsers.docs) {
-          _unAvailableAmbulances.add(
-            Ambulance.fromJson(
-              user.data(),
-            ),
-          );
+        if (listOfUsers.docs.isNotEmpty) {
+          _unAvailableAmbulances = [];
+          for (var user in listOfUsers.docs) {
+            _unAvailableAmbulances.add(
+              Ambulance.fromJson(
+                user.data(),
+              ),
+            );
+          }
+        } else {
+          _unAvailableAmbulances = [];
         }
       });
     } catch (error) {
@@ -87,16 +101,21 @@ class AmbulanceManager with ChangeNotifier {
 
   Future<List<Ambulance>> getBusyAmbulances() async {
     try {
-      final docRef =
-          database.collection("Ambulance").where('Status', isEqualTo: 'Busy');
+      final docRef = database
+          .collection("Ambulance")
+          .where('Status', isEqualTo: 'Dispatched');
       await docRef.get().then((listOfUsers) {
-        _busyAmbulances = [];
-        for (var user in listOfUsers.docs) {
-          _busyAmbulances.add(
-            Ambulance.fromJson(
-              user.data(),
-            ),
-          );
+        if (listOfUsers.docs.isNotEmpty) {
+          _busyAmbulances = [];
+          for (var user in listOfUsers.docs) {
+            _busyAmbulances.add(
+              Ambulance.fromJson(
+                user.data(),
+              ),
+            );
+          }
+        } else {
+          _busyAmbulances = [];
         }
       });
     } catch (error) {

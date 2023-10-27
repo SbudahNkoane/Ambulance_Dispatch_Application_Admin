@@ -1,13 +1,10 @@
-import 'package:admin_app/Models/user.dart';
-import 'package:admin_app/Routes/routes.dart';
-import 'package:admin_app/View_Models/user_management.dart';
-import 'package:admin_app/app_constants.dart';
+import 'package:admin_app/Models/paramedic.dart';
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ParamedicsTable extends StatelessWidget {
   const ParamedicsTable({super.key, required this.snapshot});
-  final AsyncSnapshot<List<User>> snapshot;
+  final AsyncSnapshot<List<Paramedic>> snapshot;
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +37,6 @@ class ParamedicsTable extends StatelessWidget {
                         (MediaQuery.of(context).size.width / 18)),
                     5: FixedColumnWidth(
                         (MediaQuery.of(context).size.width / 8)),
-                    6: FixedColumnWidth(
-                        (MediaQuery.of(context).size.width / 15)),
                   },
                   children: [
                     TableRow(decoration: const BoxDecoration(), children: [
@@ -117,18 +112,6 @@ class ParamedicsTable extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Container(
-                        padding: const EdgeInsets.all(18),
-                        child: const Text(
-                          "Account Status",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'HelveticaNeue',
-                          ),
-                        ),
-                      ),
                     ]),
                   ],
                 ),
@@ -194,14 +177,6 @@ class ParamedicsTable extends StatelessWidget {
                                       fontFamily: 'HelveticaNeue',
                                     ),
                                   ),
-                                  snapshot.data![index].accountStatus ==
-                                          'Verified'
-                                      ? Icon(
-                                          Icons.check_circle,
-                                          color: AppConstants().appGreen,
-                                          size: 10,
-                                        )
-                                      : const SizedBox(),
                                 ],
                               ),
                             ),
@@ -249,41 +224,6 @@ class ParamedicsTable extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Container(
-                              padding: const EdgeInsets.all(15),
-                              child: Center(
-                                child: snapshot.data![index].accountStatus ==
-                                        'Unverified'
-                                    ? TextButton(
-                                        style: TextButton.styleFrom(
-                                          minimumSize: const Size(100, 40),
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          backgroundColor: const Color.fromARGB(
-                                              90, 255, 193, 7),
-                                        ),
-                                        onPressed: () {
-                                          context
-                                              .read<UserManager>()
-                                              .viewUser(index);
-                                          Navigator.pushNamed(
-                                              context,
-                                              AppRouteManager
-                                                  .adminUserVerificationPage);
-                                        },
-                                        child: const Text(
-                                          'Verify',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.black,
-                                            fontFamily: 'HelveticaNeue',
-                                          ),
-                                        ),
-                                      )
-                                    : const Text('Verified'),
-                              ),
-                            )
                           ]);
                     }),
                   ),

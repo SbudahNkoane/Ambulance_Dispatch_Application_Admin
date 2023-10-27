@@ -1,5 +1,7 @@
-import 'package:admin_app/View_Models/user_management.dart';
-import 'package:admin_app/Views/users_table.dart';
+import 'package:admin_app/View_Models/paramedic_management.dart';
+
+import 'package:admin_app/Views/paramedics_table.dart';
+
 import 'package:admin_app/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -42,9 +44,11 @@ class _ParamedicsScreenState extends State<ParamedicsScreen> {
                     child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: FutureBuilder(
-                          future: null,
+                          future: context
+                              .read<ParamedicManager>()
+                              .getAllParamedics(),
                           builder: (context, snapshot) {
-                            return const Row(
+                            return Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -56,7 +60,8 @@ class _ParamedicsScreenState extends State<ParamedicsScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('500'),
+                                    Text(
+                                        '${context.read<ParamedicManager>().allParamedics.length}'),
                                     SizedBox(
                                       height: 10,
                                     ),
@@ -72,9 +77,9 @@ class _ParamedicsScreenState extends State<ParamedicsScreen> {
               ],
             ),
             FutureBuilder(
-              future: context.read<UserManager>().getAllUsers(),
+              future: context.read<ParamedicManager>().getAllParamedics(),
               builder: (context, snapshot) {
-                return UsersTable(
+                return ParamedicsTable(
                   snapshot: snapshot,
                 );
               },

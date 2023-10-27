@@ -207,43 +207,6 @@ class _UsersScreenState extends State<UsersScreen> {
                     ),
                   ),
                 ),
-                // SizedBox(
-                //   height: 100,
-                //   width: 200,
-                //   child: Card(
-                //     shape: RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.circular(5),
-                //     ),
-                //     color: AppConstants().appDarkWhite,
-                //     child: Padding(
-                //         padding: const EdgeInsets.all(8.0),
-                //         child: FutureBuilder(
-                //           builder: (context, snapshot) {
-                //             return const Row(
-                //               crossAxisAlignment: CrossAxisAlignment.center,
-                //               mainAxisAlignment: MainAxisAlignment.center,
-                //               children: [
-                //                 CircleAvatar(),
-                //                 SizedBox(
-                //                   width: 20,
-                //                 ),
-                //                 Column(
-                //                   mainAxisAlignment: MainAxisAlignment.center,
-                //                   crossAxisAlignment: CrossAxisAlignment.start,
-                //                   children: [
-                //                     Text('500'),
-                //                     SizedBox(
-                //                       height: 10,
-                //                     ),
-                //                     Text('Disabled users'),
-                //                   ],
-                //                 ),
-                //               ],
-                //             );
-                //           },
-                //         )),
-                //   ),
-                // ),
               ],
             ),
             SizedBox(

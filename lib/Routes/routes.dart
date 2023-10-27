@@ -1,3 +1,6 @@
+import 'package:admin_app/View_Models/ambulance_management.dart';
+import 'package:admin_app/View_Models/ticket_management.dart';
+import 'package:admin_app/Views/assign_ambulance_page.dart';
 import 'package:admin_app/Views/home_page.dart';
 import 'package:admin_app/Views/login_page.dart';
 import 'package:admin_app/Views/reset_password.dart';
@@ -5,6 +8,7 @@ import 'package:admin_app/Views/splash_screen.dart';
 import 'package:admin_app/Views/pending_tickets_page.dart';
 import 'package:admin_app/Views/user_verification_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AppRouteManager {
   // ===========================App Level Screens==================================================
@@ -13,6 +17,7 @@ class AppRouteManager {
   static const String registerPage = '/Register';
   static const String passwordResetPage = '/ResetPassword';
   static const String adminHomePage = '/HomePage';
+  static const String assignAmbulancePage = '/assignAmbulancePage';
   static const String adminTicketsPage = '/TicketsPage';
   static const String adminUserVerificationPage = '/UserVerificationPage';
 
@@ -43,12 +48,16 @@ class AppRouteManager {
         );
       case adminTicketsPage:
         return MaterialPageRoute(
-          builder: (context) => const PendingTicketsPage(),
+          builder: (context) => PendingTicketsPage(
+            tickets: context.read<TicketManager>().openTickets,
+          ),
         );
-      // case userMenuPage:
-      //   return MaterialPageRoute(
-      //     builder: (context) => const UserMenuPage(),
-      //   );
+      case assignAmbulancePage:
+        return MaterialPageRoute(
+          builder: (context) => AssignAmbulancePage(
+            ambulances: context.read<AmbulanceManager>().availableAmbulances,
+          ),
+        );
       // case userRequestFormPage:
       //   return MaterialPageRoute(
       //     builder: (context) => const UserRequestFromPage(),

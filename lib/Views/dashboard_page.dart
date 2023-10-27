@@ -5,6 +5,7 @@ import 'package:admin_app/View_Models/ticket_management.dart';
 import 'package:admin_app/View_Models/user_management.dart';
 import 'package:admin_app/app_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -47,7 +48,14 @@ class DashboardScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text('Total users'),
+                                        Text(
+                                          'Total users',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                              color: Color.fromARGB(
+                                                  255, 129, 129, 129)),
+                                        ),
                                         SizedBox(
                                           height: 30,
                                         ),
@@ -55,7 +63,14 @@ class DashboardScreen extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Text('${snapshot.data!.length}'),
+                                            Text(
+                                              '${snapshot.data!.length}',
+                                              style: GoogleFonts.paytoneOne(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16,
+                                                  color: Color.fromARGB(
+                                                      255, 36, 35, 35)),
+                                            ),
                                             SizedBox(
                                               width: 50,
                                             ),
@@ -100,7 +115,14 @@ class DashboardScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text('Total paramedics'),
+                                        Text(
+                                          'Total paramedics',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                              color: Color.fromARGB(
+                                                  255, 129, 129, 129)),
+                                        ),
                                         SizedBox(
                                           height: 30,
                                         ),
@@ -108,7 +130,14 @@ class DashboardScreen extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Text('${snapshot.data!.length}'),
+                                            Text(
+                                              '${snapshot.data!.length}',
+                                              style: GoogleFonts.paytoneOne(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16,
+                                                  color: Color.fromARGB(
+                                                      255, 36, 35, 35)),
+                                            ),
                                             SizedBox(
                                               width: 50,
                                             ),
@@ -150,7 +179,14 @@ class DashboardScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text('Total Ambulances'),
+                                        Text(
+                                          'Total Ambulances',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                              color: Color.fromARGB(
+                                                  255, 129, 129, 129)),
+                                        ),
                                         SizedBox(
                                           height: 30,
                                         ),
@@ -158,7 +194,14 @@ class DashboardScreen extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Text('${snapshot.data!.length}'),
+                                            Text(
+                                              '${snapshot.data!.length}',
+                                              style: GoogleFonts.paytoneOne(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16,
+                                                  color: Color.fromARGB(
+                                                      255, 36, 35, 35)),
+                                            ),
                                             SizedBox(
                                               width: 50,
                                             ),
@@ -195,7 +238,8 @@ class DashboardScreen extends StatelessWidget {
                       child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: FutureBuilder(
-                            future: context.read<TicketManager>().getAllUsers(),
+                            future:
+                                context.read<TicketManager>().getAllTickets(),
                             builder: (context, snapshot) {
                               return snapshot.hasData
                                   ? Column(
@@ -204,7 +248,14 @@ class DashboardScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text('Total tickets'),
+                                        Text(
+                                          'Total tickets',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                              color: Color.fromARGB(
+                                                  255, 129, 129, 129)),
+                                        ),
                                         SizedBox(
                                           height: 30,
                                         ),
@@ -212,7 +263,14 @@ class DashboardScreen extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Text('${snapshot.data!.length}'),
+                                            Text(
+                                              '${snapshot.data!.length}',
+                                              style: GoogleFonts.paytoneOne(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16,
+                                                  color: Color.fromARGB(
+                                                      255, 36, 35, 35)),
+                                            ),
                                             SizedBox(
                                               width: 50,
                                             ),
@@ -255,15 +313,32 @@ class DashboardScreen extends StatelessWidget {
                           builder: (context, snapshot) {
                             return ListView(
                               children: [
-                                Text('Ambulance Stats'),
+                                Text(
+                                  'Ambulance Stats',
+                                  style: GoogleFonts.paytoneOne(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Color.fromARGB(255, 36, 35, 35)),
+                                ),
                                 ListTile(
                                   leading: CircleAvatar(
                                     radius: 14,
                                     backgroundColor: Colors.green,
                                   ),
-                                  title: Text('Available'),
+                                  title: Text(
+                                    'Available',
+                                    style: GoogleFonts.concertOne(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Color.fromARGB(255, 75, 75, 75)),
+                                  ),
                                   trailing: Text(
-                                      '${context.read<AmbulanceManager>().availableAmbulances.length}'),
+                                    '${context.read<AmbulanceManager>().availableAmbulances.length}',
+                                    style: GoogleFonts.concertOne(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Color.fromARGB(255, 75, 75, 75)),
+                                  ),
                                 ),
                                 Divider(),
                                 ListTile(
@@ -272,9 +347,20 @@ class DashboardScreen extends StatelessWidget {
                                     backgroundColor:
                                         Color.fromARGB(255, 255, 0, 0),
                                   ),
-                                  title: Text('Unvailable'),
+                                  title: Text(
+                                    'Unvailable',
+                                    style: GoogleFonts.concertOne(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Color.fromARGB(255, 75, 75, 75)),
+                                  ),
                                   trailing: Text(
-                                      '${context.read<AmbulanceManager>().unAvailableAmbulances.length}'),
+                                    '${context.read<AmbulanceManager>().unAvailableAmbulances.length}',
+                                    style: GoogleFonts.concertOne(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Color.fromARGB(255, 75, 75, 75)),
+                                  ),
                                 ),
                                 Divider(),
                                 ListTile(
@@ -283,9 +369,20 @@ class DashboardScreen extends StatelessWidget {
                                     backgroundColor:
                                         Color.fromARGB(255, 255, 168, 54),
                                   ),
-                                  title: Text('On Dispatch'),
+                                  title: Text(
+                                    'On Dispatch',
+                                    style: GoogleFonts.concertOne(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Color.fromARGB(255, 75, 75, 75)),
+                                  ),
                                   trailing: Text(
-                                      '${context.read<AmbulanceManager>().busyAmbulances.length}'),
+                                    '${context.read<AmbulanceManager>().busyAmbulances.length}',
+                                    style: GoogleFonts.concertOne(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Color.fromARGB(255, 75, 75, 75)),
+                                  ),
                                 ),
                               ],
                             );
@@ -306,10 +403,16 @@ class DashboardScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: ListView(
                           children: [
-                            Text('Tickets Stats'),
+                            Text(
+                              'Tickets Stats',
+                              style: GoogleFonts.paytoneOne(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Color.fromARGB(255, 36, 35, 35)),
+                            ),
                             ListTile(
                               subtitle: TextButton(
-                                onPressed: () {
+                                onPressed: () async {
                                   Navigator.of(context).pushNamed(
                                       AppRouteManager.adminTicketsPage);
                                 },
@@ -319,9 +422,20 @@ class DashboardScreen extends StatelessWidget {
                                 radius: 14,
                                 backgroundColor: Colors.green,
                               ),
-                              title: Text('Open'),
+                              title: Text(
+                                'Open',
+                                style: GoogleFonts.concertOne(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    color: Color.fromARGB(255, 75, 75, 75)),
+                              ),
                               trailing: Text(
-                                  '${context.read<TicketManager>().openTickets.length}'),
+                                '${context.read<TicketManager>().openTickets.length}',
+                                style: GoogleFonts.concertOne(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    color: Color.fromARGB(255, 75, 75, 75)),
+                              ),
                             ),
                             Divider(),
                             ListTile(
@@ -330,9 +444,20 @@ class DashboardScreen extends StatelessWidget {
                                 backgroundColor:
                                     Color.fromARGB(255, 255, 168, 54),
                               ),
-                              title: Text('Pending'),
+                              title: Text(
+                                'Pending',
+                                style: GoogleFonts.concertOne(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    color: Color.fromARGB(255, 75, 75, 75)),
+                              ),
                               trailing: Text(
-                                  '${context.read<TicketManager>().pendingTickets.length}'),
+                                '${context.read<TicketManager>().pendingTickets.length}',
+                                style: GoogleFonts.concertOne(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    color: Color.fromARGB(255, 75, 75, 75)),
+                              ),
                             ),
                             Divider(),
                             ListTile(
@@ -340,9 +465,20 @@ class DashboardScreen extends StatelessWidget {
                                 radius: 14,
                                 backgroundColor: Color.fromARGB(255, 255, 0, 0),
                               ),
-                              title: Text('Closed'),
+                              title: Text(
+                                'Closed',
+                                style: GoogleFonts.concertOne(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    color: Color.fromARGB(255, 75, 75, 75)),
+                              ),
                               trailing: Text(
-                                  '${context.read<TicketManager>().closedTickets.length}'),
+                                '${context.read<TicketManager>().closedTickets.length}',
+                                style: GoogleFonts.concertOne(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    color: Color.fromARGB(255, 75, 75, 75)),
+                              ),
                             ),
                           ],
                         ),
