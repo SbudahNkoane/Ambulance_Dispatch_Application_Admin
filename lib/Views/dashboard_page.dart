@@ -53,10 +53,10 @@ class DashboardScreen extends StatelessWidget {
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 16,
-                                              color: Color.fromARGB(
+                                              color: const Color.fromARGB(
                                                   255, 129, 129, 129)),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 30,
                                         ),
                                         Row(
@@ -68,21 +68,22 @@ class DashboardScreen extends StatelessWidget {
                                               style: GoogleFonts.paytoneOne(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 16,
-                                                  color: Color.fromARGB(
+                                                  color: const Color.fromARGB(
                                                       255, 36, 35, 35)),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 50,
                                             ),
-                                            Icon(
-                                              Icons.person_pin,
-                                              size: 50,
+                                            Image.asset(
+                                              'assets/images/users.png',
+                                              height: 50,
+                                              width: 50,
                                             ),
                                           ],
                                         ),
                                       ],
                                     )
-                                  : Column(
+                                  : const Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
@@ -120,10 +121,10 @@ class DashboardScreen extends StatelessWidget {
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 16,
-                                              color: Color.fromARGB(
+                                              color: const Color.fromARGB(
                                                   255, 129, 129, 129)),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 30,
                                         ),
                                         Row(
@@ -135,21 +136,22 @@ class DashboardScreen extends StatelessWidget {
                                               style: GoogleFonts.paytoneOne(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 16,
-                                                  color: Color.fromARGB(
+                                                  color: const Color.fromARGB(
                                                       255, 36, 35, 35)),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 50,
                                             ),
-                                            Icon(
-                                              Icons.person_pin,
-                                              size: 50,
+                                            Image.asset(
+                                              'assets/images/para.png',
+                                              height: 50,
+                                              width: 50,
                                             ),
                                           ],
                                         ),
                                       ],
                                     )
-                                  : Column(
+                                  : const Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
@@ -184,10 +186,10 @@ class DashboardScreen extends StatelessWidget {
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 16,
-                                              color: Color.fromARGB(
+                                              color: const Color.fromARGB(
                                                   255, 129, 129, 129)),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 30,
                                         ),
                                         Row(
@@ -199,21 +201,22 @@ class DashboardScreen extends StatelessWidget {
                                               style: GoogleFonts.paytoneOne(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 16,
-                                                  color: Color.fromARGB(
+                                                  color: const Color.fromARGB(
                                                       255, 36, 35, 35)),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 50,
                                             ),
-                                            Icon(
-                                              Icons.person_pin,
-                                              size: 50,
+                                            Image.asset(
+                                              'assets/images/ambulance.png',
+                                              height: 50,
+                                              width: 50,
                                             ),
                                           ],
                                         ),
                                       ],
                                     )
-                                  : Column(
+                                  : const Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
@@ -253,10 +256,10 @@ class DashboardScreen extends StatelessWidget {
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 16,
-                                              color: Color.fromARGB(
+                                              color: const Color.fromARGB(
                                                   255, 129, 129, 129)),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 30,
                                         ),
                                         Row(
@@ -268,21 +271,22 @@ class DashboardScreen extends StatelessWidget {
                                               style: GoogleFonts.paytoneOne(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 16,
-                                                  color: Color.fromARGB(
+                                                  color: const Color.fromARGB(
                                                       255, 36, 35, 35)),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 50,
                                             ),
-                                            Icon(
-                                              Icons.person_pin,
-                                              size: 50,
+                                            Image.asset(
+                                              'assets/images/tickets.jpg',
+                                              height: 50,
+                                              width: 50,
                                             ),
                                           ],
                                         ),
                                       ],
                                     )
-                                  : Column(
+                                  : const Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
@@ -318,10 +322,11 @@ class DashboardScreen extends StatelessWidget {
                                   style: GoogleFonts.paytoneOne(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
-                                      color: Color.fromARGB(255, 36, 35, 35)),
+                                      color: const Color.fromARGB(
+                                          255, 36, 35, 35)),
                                 ),
                                 ListTile(
-                                  leading: CircleAvatar(
+                                  leading: const CircleAvatar(
                                     radius: 14,
                                     backgroundColor: Colors.green,
                                   ),
@@ -330,19 +335,21 @@ class DashboardScreen extends StatelessWidget {
                                     style: GoogleFonts.concertOne(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14,
-                                        color: Color.fromARGB(255, 75, 75, 75)),
+                                        color: const Color.fromARGB(
+                                            255, 75, 75, 75)),
                                   ),
                                   trailing: Text(
                                     '${context.read<AmbulanceManager>().availableAmbulances.length}',
                                     style: GoogleFonts.concertOne(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14,
-                                        color: Color.fromARGB(255, 75, 75, 75)),
+                                        color: const Color.fromARGB(
+                                            255, 75, 75, 75)),
                                   ),
                                 ),
-                                Divider(),
+                                const Divider(),
                                 ListTile(
-                                  leading: CircleAvatar(
+                                  leading: const CircleAvatar(
                                     radius: 14,
                                     backgroundColor:
                                         Color.fromARGB(255, 255, 0, 0),
@@ -352,19 +359,21 @@ class DashboardScreen extends StatelessWidget {
                                     style: GoogleFonts.concertOne(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14,
-                                        color: Color.fromARGB(255, 75, 75, 75)),
+                                        color: const Color.fromARGB(
+                                            255, 75, 75, 75)),
                                   ),
                                   trailing: Text(
                                     '${context.read<AmbulanceManager>().unAvailableAmbulances.length}',
                                     style: GoogleFonts.concertOne(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14,
-                                        color: Color.fromARGB(255, 75, 75, 75)),
+                                        color: const Color.fromARGB(
+                                            255, 75, 75, 75)),
                                   ),
                                 ),
-                                Divider(),
+                                const Divider(),
                                 ListTile(
-                                  leading: CircleAvatar(
+                                  leading: const CircleAvatar(
                                     radius: 14,
                                     backgroundColor:
                                         Color.fromARGB(255, 255, 168, 54),
@@ -374,14 +383,16 @@ class DashboardScreen extends StatelessWidget {
                                     style: GoogleFonts.concertOne(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14,
-                                        color: Color.fromARGB(255, 75, 75, 75)),
+                                        color: const Color.fromARGB(
+                                            255, 75, 75, 75)),
                                   ),
                                   trailing: Text(
                                     '${context.read<AmbulanceManager>().busyAmbulances.length}',
                                     style: GoogleFonts.concertOne(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14,
-                                        color: Color.fromARGB(255, 75, 75, 75)),
+                                        color: const Color.fromARGB(
+                                            255, 75, 75, 75)),
                                   ),
                                 ),
                               ],
@@ -408,7 +419,7 @@ class DashboardScreen extends StatelessWidget {
                               style: GoogleFonts.paytoneOne(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
-                                  color: Color.fromARGB(255, 36, 35, 35)),
+                                  color: const Color.fromARGB(255, 36, 35, 35)),
                             ),
                             ListTile(
                               subtitle: TextButton(
@@ -416,9 +427,9 @@ class DashboardScreen extends StatelessWidget {
                                   Navigator.of(context).pushNamed(
                                       AppRouteManager.adminTicketsPage);
                                 },
-                                child: Text('Manage Tickets'),
+                                child: const Text('Manage Tickets'),
                               ),
-                              leading: CircleAvatar(
+                              leading: const CircleAvatar(
                                 radius: 14,
                                 backgroundColor: Colors.green,
                               ),
@@ -427,19 +438,21 @@ class DashboardScreen extends StatelessWidget {
                                 style: GoogleFonts.concertOne(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
-                                    color: Color.fromARGB(255, 75, 75, 75)),
+                                    color:
+                                        const Color.fromARGB(255, 75, 75, 75)),
                               ),
                               trailing: Text(
                                 '${context.read<TicketManager>().openTickets.length}',
                                 style: GoogleFonts.concertOne(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
-                                    color: Color.fromARGB(255, 75, 75, 75)),
+                                    color:
+                                        const Color.fromARGB(255, 75, 75, 75)),
                               ),
                             ),
-                            Divider(),
+                            const Divider(),
                             ListTile(
-                              leading: CircleAvatar(
+                              leading: const CircleAvatar(
                                 radius: 14,
                                 backgroundColor:
                                     Color.fromARGB(255, 255, 168, 54),
@@ -449,19 +462,21 @@ class DashboardScreen extends StatelessWidget {
                                 style: GoogleFonts.concertOne(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
-                                    color: Color.fromARGB(255, 75, 75, 75)),
+                                    color:
+                                        const Color.fromARGB(255, 75, 75, 75)),
                               ),
                               trailing: Text(
                                 '${context.read<TicketManager>().pendingTickets.length}',
                                 style: GoogleFonts.concertOne(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
-                                    color: Color.fromARGB(255, 75, 75, 75)),
+                                    color:
+                                        const Color.fromARGB(255, 75, 75, 75)),
                               ),
                             ),
-                            Divider(),
+                            const Divider(),
                             ListTile(
-                              leading: CircleAvatar(
+                              leading: const CircleAvatar(
                                 radius: 14,
                                 backgroundColor: Color.fromARGB(255, 255, 0, 0),
                               ),
@@ -470,14 +485,16 @@ class DashboardScreen extends StatelessWidget {
                                 style: GoogleFonts.concertOne(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
-                                    color: Color.fromARGB(255, 75, 75, 75)),
+                                    color:
+                                        const Color.fromARGB(255, 75, 75, 75)),
                               ),
                               trailing: Text(
                                 '${context.read<TicketManager>().closedTickets.length}',
                                 style: GoogleFonts.concertOne(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
-                                    color: Color.fromARGB(255, 75, 75, 75)),
+                                    color:
+                                        const Color.fromARGB(255, 75, 75, 75)),
                               ),
                             ),
                           ],

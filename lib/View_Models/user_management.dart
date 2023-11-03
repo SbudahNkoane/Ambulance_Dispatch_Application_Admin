@@ -9,7 +9,11 @@ class UserManager with ChangeNotifier {
   //============All Users on the System==========
   List<User> _allUsers = [];
   List<User> get allUsers => _allUsers;
+  bool _showprogress = false;
+  bool get showProgress => _showprogress;
 
+  String _userprogresstext = "";
+  String get userProgressText => _userprogresstext;
   int _clickedUser = 0;
   int get clickedUser => _clickedUser;
 
@@ -23,6 +27,9 @@ class UserManager with ChangeNotifier {
   FirebaseFirestore db = FirebaseFirestore.instance;
 
   Future<List<User>> getVerifiedUsers() async {
+    _showprogress = true;
+    _userprogresstext = "loading Verified users...";
+    notifyListeners();
     try {
       await db
           .collection('User')
@@ -62,13 +69,17 @@ class UserManager with ChangeNotifier {
           _allVerifiedUsers = [];
         }
       });
-    } catch (e) {
-      print(e);
+    } finally {
+      _showprogress = false;
+      notifyListeners();
     }
     return _allVerifiedUsers;
   }
 
   Future<List<User>> getUnverifiedUsers() async {
+    _showprogress = true;
+    _userprogresstext = "loading Unverified users...";
+    notifyListeners();
     try {
       await db
           .collection('User')
@@ -99,10 +110,11 @@ class UserManager with ChangeNotifier {
           );
         }
       });
-    } catch (e) {
-      print(e);
+    } finally {
+      _showprogress = false;
+      notifyListeners();
     }
-    notifyListeners();
+
     return _allUnverifiedUsers;
   }
 
@@ -117,7 +129,9 @@ class UserManager with ChangeNotifier {
       required Admin verifyer,
       required String status}) async {
     String state = 'OK';
-
+    _showprogress = true;
+    _userprogresstext = "Updating User Status...";
+    notifyListeners();
     await db.collection('User').doc(userID).update(
       {
         'Account_Status': status,
@@ -126,11 +140,15 @@ class UserManager with ChangeNotifier {
     ).onError((error, stackTrace) {
       state = error.toString();
     });
+    _showprogress = false;
     notifyListeners();
     return state;
   }
 
   Future<List<User>> getAllUsers() async {
+    _showprogress = true;
+    _userprogresstext = "Loading Users...";
+    notifyListeners();
     try {
       final docRef = db.collection("User");
       await docRef.get().then((listOfUsers) {
@@ -154,10 +172,11 @@ class UserManager with ChangeNotifier {
           );
         }
       });
-    } catch (error) {
-      print(error);
+    } finally {
+      _showprogress = false;
+      notifyListeners();
     }
-    notifyListeners();
+
     return _allUsers;
   }
 }

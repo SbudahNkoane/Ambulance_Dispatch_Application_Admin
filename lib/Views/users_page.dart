@@ -1,8 +1,10 @@
 import 'package:admin_app/View_Models/user_management.dart';
+import 'package:admin_app/Views/app_progress_indicator.dart';
 import 'package:admin_app/Views/users_table.dart';
 import 'package:admin_app/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tuple/tuple.dart';
 
 class UsersScreen extends StatefulWidget {
   const UsersScreen({super.key});
@@ -17,7 +19,7 @@ class _UsersScreenState extends State<UsersScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.only(),
+        padding: const EdgeInsets.only(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,8 +61,12 @@ class _UsersScreenState extends State<UsersScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        CircleAvatar(),
-                                        SizedBox(
+                                        Image.asset(
+                                          'assets/images/users.png',
+                                          height: 40,
+                                          width: 40,
+                                        ),
+                                        const SizedBox(
                                           width: 20,
                                         ),
                                         Column(
@@ -70,15 +76,15 @@ class _UsersScreenState extends State<UsersScreen> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text('${snapshot.data!.length}'),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
-                                            Text('Total users'),
+                                            const Text('Total users'),
                                           ],
                                         ),
                                       ],
                                     )
-                                  : Column(
+                                  : const Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
@@ -117,8 +123,12 @@ class _UsersScreenState extends State<UsersScreen> {
                                         CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      CircleAvatar(),
-                                      SizedBox(
+                                      Image.asset(
+                                        'assets/images/unverified.png',
+                                        height: 40,
+                                        width: 40,
+                                      ),
+                                      const SizedBox(
                                         width: 20,
                                       ),
                                       Column(
@@ -128,15 +138,15 @@ class _UsersScreenState extends State<UsersScreen> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text('${snapshot.data!.length}'),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
-                                          Text('Unverified users'),
+                                          const Text('Unverified users'),
                                         ],
                                       ),
                                     ],
                                   )
-                                : Column(
+                                : const Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       CircularProgressIndicator(),
@@ -176,8 +186,12 @@ class _UsersScreenState extends State<UsersScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        CircleAvatar(),
-                                        SizedBox(
+                                        Image.asset(
+                                          'assets/images/V_users.png',
+                                          height: 40,
+                                          width: 40,
+                                        ),
+                                        const SizedBox(
                                           width: 20,
                                         ),
                                         Column(
@@ -187,15 +201,15 @@ class _UsersScreenState extends State<UsersScreen> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text('${snapshot.data!.length}'),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
-                                            Text('Verified users'),
+                                            const Text('Verified users'),
                                           ],
                                         ),
                                       ],
                                     )
-                                  : Column(
+                                  : const Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
@@ -209,22 +223,35 @@ class _UsersScreenState extends State<UsersScreen> {
                 ),
               ],
             ),
-            SizedBox(
-              height: 23,
+            const SizedBox(
+              height: 20,
             ),
-            FutureBuilder(
-              future: index == 0
-                  ? context.read<UserManager>().getAllUsers()
-                  : index == 1
-                      ? context.read<UserManager>().getUnverifiedUsers()
-                      : index == 2
-                          ? context.read<UserManager>().getVerifiedUsers()
-                          : context.read<UserManager>().getAllUsers(),
-              builder: (context, snapshot) {
-                return UsersTable(
-                  snapshot: snapshot,
-                );
-              },
+            Stack(
+              children: [
+                FutureBuilder(
+                  future: index == 0
+                      ? context.read<UserManager>().getAllUsers()
+                      : index == 1
+                          ? context.read<UserManager>().getUnverifiedUsers()
+                          : index == 2
+                              ? context.read<UserManager>().getVerifiedUsers()
+                              : context.read<UserManager>().getAllUsers(),
+                  builder: (context, snapshot) {
+                    return UsersTable(
+                      snapshot: snapshot,
+                    );
+                  },
+                ),
+                Selector<UserManager, Tuple2>(
+                  selector: (context, value) =>
+                      Tuple2(value.showProgress, value.userProgressText),
+                  builder: (context, value, child) {
+                    return value.item1
+                        ? AppProgressIndicator(text: "${value.item2}")
+                        : Container();
+                  },
+                ),
+              ],
             )
             // AppTable(
             //   future: ,

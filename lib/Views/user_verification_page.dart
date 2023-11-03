@@ -41,7 +41,7 @@ class _UserVerificationScreenState extends State<UserVerificationScreen> {
                           Container(
                             height: 250,
                             width: 250,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage('assets/images/med.png'),
                               ),
@@ -51,15 +51,15 @@ class _UserVerificationScreenState extends State<UserVerificationScreen> {
                               '${userList[context.read<UserManager>().clickedUser].names} ${userList[context.read<UserManager>().clickedUser].surname}'),
                         ],
                       ),
-                      Text('About'),
-                      Divider(),
-                      SizedBox(
+                      const Text('About'),
+                      const Divider(),
+                      const SizedBox(
                         height: 20,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Column(
+                          const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -78,7 +78,7 @@ class _UserVerificationScreenState extends State<UserVerificationScreen> {
                               Text('Id Number:'),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 70,
                           ),
                           Column(
@@ -87,31 +87,34 @@ class _UserVerificationScreenState extends State<UserVerificationScreen> {
                             children: [
                               Text(
                                   '0${userList[context.read<UserManager>().clickedUser].cellphoneNumber}'),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
-                              Text(
-                                  '${userList[context.read<UserManager>().clickedUser].emailaddress}'),
-                              SizedBox(
+                              Text(userList[
+                                      context.read<UserManager>().clickedUser]
+                                  .emailaddress),
+                              const SizedBox(
                                 height: 20,
                               ),
-                              Text(
-                                  '${userList[context.read<UserManager>().clickedUser].gender}'),
-                              SizedBox(
+                              Text(userList[
+                                      context.read<UserManager>().clickedUser]
+                                  .gender),
+                              const SizedBox(
                                 height: 20,
                               ),
-                              Text(
-                                  '${userList[context.read<UserManager>().clickedUser].idNumber}'),
+                              Text(userList[
+                                      context.read<UserManager>().clickedUser]
+                                  .idNumber),
                             ],
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
-                      Text('Verification Information'),
-                      Divider(),
-                      SizedBox(
+                      const Text('Verification Information'),
+                      const Divider(),
+                      const SizedBox(
                         height: 20,
                       ),
                       Row(
@@ -121,30 +124,31 @@ class _UserVerificationScreenState extends State<UserVerificationScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Account Status:'),
-                              SizedBox(
+                              const Text('Account Status:'),
+                              const SizedBox(
                                 height: 20,
                               ),
                               userList[context.read<UserManager>().clickedUser]
                                           .accountStatus ==
                                       'Verified'
-                                  ? Text('Verified By:')
-                                  : SizedBox(),
-                              SizedBox(
+                                  ? const Text('Verified By:')
+                                  : const SizedBox(),
+                              const SizedBox(
                                 height: 20,
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 70,
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                  '${userList[context.read<UserManager>().clickedUser].accountStatus}'),
-                              SizedBox(
+                              Text(userList[
+                                      context.read<UserManager>().clickedUser]
+                                  .accountStatus),
+                              const SizedBox(
                                 height: 20,
                               ),
                               userList[context.read<UserManager>().clickedUser]
@@ -152,27 +156,27 @@ class _UserVerificationScreenState extends State<UserVerificationScreen> {
                                       'Verified'
                                   ? Text(
                                       '${userList[context.read<UserManager>().clickedUser].verifiedBy}')
-                                  : SizedBox(),
-                              SizedBox(
+                                  : const SizedBox(),
+                              const SizedBox(
                                 height: 20,
                               ),
                             ],
                           ),
                         ],
                       ),
-                      Text('Attachments'),
+                      const Text('Attachments'),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
+                          SizedBox(
                             width: 500,
                             height: 700,
                             //  color: Colors.black,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Selfie'),
+                                const Text('Selfie'),
                                 userList[context
                                                 .read<UserManager>()
                                                 .clickedUser]
@@ -182,28 +186,28 @@ class _UserVerificationScreenState extends State<UserVerificationScreen> {
                                         '${userList[context.read<UserManager>().clickedUser].idDocument['ID_Front']}',
                                         loadingBuilder:
                                             (context, child, loadingProgress) {
-                                          return Center(
+                                          return const Center(
                                             child: CircularProgressIndicator(),
                                           );
                                         },
                                         height: 400,
                                         width: 400,
                                       )
-                                    : SizedBox(
+                                    : const SizedBox(
                                         height: 400,
                                         width: 400,
                                       ),
                               ],
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             width: 500,
                             height: 700,
                             //color: const Color.fromARGB(255, 47, 17, 17),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('ID Front'),
+                                const Text('ID Front'),
                                 userList[context
                                                 .read<UserManager>()
                                                 .clickedUser]
@@ -213,18 +217,18 @@ class _UserVerificationScreenState extends State<UserVerificationScreen> {
                                         '${userList[context.read<UserManager>().clickedUser].idDocument['ID_Front']}',
                                         loadingBuilder:
                                             (context, child, loadingProgress) {
-                                          return Center(
+                                          return const Center(
                                             child: CircularProgressIndicator(),
                                           );
                                         },
                                         height: 300,
                                         width: 300,
                                       )
-                                    : SizedBox(
+                                    : const SizedBox(
                                         height: 300,
                                         width: 300,
                                       ),
-                                Text('ID Back'),
+                                const Text('ID Back'),
                                 userList[context
                                                 .read<UserManager>()
                                                 .clickedUser]
@@ -234,14 +238,14 @@ class _UserVerificationScreenState extends State<UserVerificationScreen> {
                                         '${userList[context.read<UserManager>().clickedUser].idDocument['ID_Back']}',
                                         loadingBuilder:
                                             (context, child, loadingProgress) {
-                                          return Center(
+                                          return const Center(
                                             child: CircularProgressIndicator(),
                                           );
                                         },
                                         height: 300,
                                         width: 300,
                                       )
-                                    : SizedBox(
+                                    : const SizedBox(
                                         height: 300,
                                         width: 300,
                                       ),
@@ -261,7 +265,7 @@ class _UserVerificationScreenState extends State<UserVerificationScreen> {
                                         userID: userList[context
                                                 .read<UserManager>()
                                                 .clickedUser]
-                                            .userID!,
+                                            .userID,
                                         verifyer: context
                                             .read<AdminManager>()
                                             .adminData,
@@ -270,8 +274,8 @@ class _UserVerificationScreenState extends State<UserVerificationScreen> {
                                 setState(() {});
                               },
                               text: 'Verify User')
-                          : SizedBox(),
-                      SizedBox(
+                          : const SizedBox(),
+                      const SizedBox(
                         height: 50,
                       )
                     ],

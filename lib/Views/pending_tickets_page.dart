@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:admin_app/Models/ticket.dart';
 import 'package:admin_app/Routes/routes.dart';
 import 'package:admin_app/View_Models/ambulance_management.dart';
@@ -28,7 +30,7 @@ class _PendingTicketsPageState extends State<PendingTicketsPage> {
         stream: context.read<TicketManager>().ticketsStreamer(),
         builder: (context, snapshot) {
           return Padding(
-            padding: EdgeInsets.only(left: 10, right: 10),
+            padding: const EdgeInsets.only(left: 10, right: 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               // mainAxisAlignment: MainAxisAlignment.center,
@@ -37,8 +39,7 @@ class _PendingTicketsPageState extends State<PendingTicketsPage> {
                 Selector<TicketManager, List<Ticket>>(
                   selector: (p0, p1) => p1.openTickets,
                   builder: (context, value, child) {
-                    return Container(
-                      // color: Colors.amber,
+                    return SizedBox(
                       height: MediaQuery.of(context).size.height / 1.3,
                       child: value.isNotEmpty
                           ? ListView.builder(
@@ -51,7 +52,7 @@ class _PendingTicketsPageState extends State<PendingTicketsPage> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
                                       children: [
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 12,
                                         ),
                                         Row(
@@ -60,7 +61,7 @@ class _PendingTicketsPageState extends State<PendingTicketsPage> {
                                                 'Requested at: ${value[index].bookedAt.year}-${value[index].bookedAt.month}-${value[index].bookedAt.day}'),
                                           ],
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 12,
                                         ),
                                         Row(
@@ -69,7 +70,7 @@ class _PendingTicketsPageState extends State<PendingTicketsPage> {
                                                 'Time: ${value[index].bookedAt.hour}h:${value[index].bookedAt.minute}m:${value[index].bookedAt.second}s'),
                                           ],
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 12,
                                         ),
                                         Row(
@@ -78,23 +79,25 @@ class _PendingTicketsPageState extends State<PendingTicketsPage> {
                                                 'Patient Condition: ${value[index].description}'),
                                           ],
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 12,
                                         ),
                                         ElevatedButton(
-                                            onPressed: () async {
-                                              context
-                                                  .read<TicketManager>()
-                                                  .setTicketIndex(index);
-                                              await context
-                                                  .read<AmbulanceManager>()
-                                                  .getAvailableAmbulances();
-                                              Navigator.of(context).pushNamed(
-                                                  AppRouteManager
-                                                      .assignAmbulancePage);
-                                            },
-                                            child: Text('Dispatch Ambulance')),
-                                        SizedBox(
+                                          onPressed: () async {
+                                            context
+                                                .read<TicketManager>()
+                                                .setTicketIndex(index);
+                                            await context
+                                                .read<AmbulanceManager>()
+                                                .getAvailableAmbulances();
+                                            Navigator.of(context).pushNamed(
+                                                AppRouteManager
+                                                    .assignAmbulancePage);
+                                          },
+                                          child:
+                                              const Text('Dispatch Ambulance'),
+                                        ),
+                                        const SizedBox(
                                           height: 12,
                                         ),
                                       ],
@@ -103,7 +106,7 @@ class _PendingTicketsPageState extends State<PendingTicketsPage> {
                                 );
                               },
                             )
-                          : Center(
+                          : const Center(
                               child: Text('No Tickets Logged yet...'),
                             ),
                     );

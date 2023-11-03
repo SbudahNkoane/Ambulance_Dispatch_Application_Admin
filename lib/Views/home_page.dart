@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:admin_app/View_Models/admin_management.dart';
 import 'package:admin_app/View_Models/ambulance_management.dart';
 import 'package:admin_app/View_Models/auth.dart';
@@ -46,7 +48,6 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.width);
     return Scaffold(
       appBar: AppBar(
         foregroundColor: AppConstants().appBlack,
@@ -82,9 +83,6 @@ class _HomePageState extends State<HomePage>
               ),
             ),
           ),
-          const InkWell(
-            child: CircleAvatar(),
-          ),
           const SizedBox(width: 32),
           TextButton(
             onPressed: () async {
@@ -95,9 +93,7 @@ class _HomePageState extends State<HomePage>
                       builder: (BuildContext context) => const LoginPage(),
                     ),
                     (route) => false);
-              } else {
-                print(result);
-              }
+              } else {}
             },
             child: const Text('Sign Out'),
           ),
@@ -127,8 +123,8 @@ class _HomePageState extends State<HomePage>
                 physics: const NeverScrollableScrollPhysics(),
                 controller: tabController,
                 children: [
-                  DashboardScreen(),
-                  UsersScreen(),
+                  const DashboardScreen(),
+                  const UsersScreen(),
                   AmbulancesScreen(
                     ambulances: context.read<AmbulanceManager>().allAmbulance,
                   ),
@@ -203,7 +199,6 @@ class _HomePageState extends State<HomePage>
             ),
             onTap: () {
               tabController.animateTo(0);
-              drawerStatus ? Navigator.pop(context) : print("pressed");
             },
           ),
         ),
@@ -218,7 +213,11 @@ class _HomePageState extends State<HomePage>
                 : AppConstants().appBlack,
             hoverColor: AppConstants().appDarkBlue,
             selected: tabController.index == 1 ? true : false,
-            leading: const Icon(Icons.dashboard),
+            leading: Image.asset(
+              'assets/images/users.png',
+              height: 30,
+              width: 30,
+            ),
             title: const Text(
               "Users",
               style: TextStyle(
@@ -228,7 +227,6 @@ class _HomePageState extends State<HomePage>
             ),
             onTap: () {
               tabController.animateTo(1);
-              drawerStatus ? Navigator.pop(context) : print("pressed");
             },
           ),
         ),
@@ -243,7 +241,11 @@ class _HomePageState extends State<HomePage>
                 : AppConstants().appBlack,
             hoverColor: AppConstants().appDarkBlue,
             selected: tabController.index == 2 ? true : false,
-            leading: const Icon(Icons.dashboard),
+            leading: Image.asset(
+              'assets/images/ambulance.png',
+              height: 30,
+              width: 30,
+            ),
             title: const Text(
               "Ambulances",
               style: TextStyle(
@@ -253,7 +255,6 @@ class _HomePageState extends State<HomePage>
             ),
             onTap: () {
               tabController.animateTo(2);
-              drawerStatus ? Navigator.pop(context) : print("pressed");
             },
           ),
         ),
@@ -268,7 +269,11 @@ class _HomePageState extends State<HomePage>
                 : AppConstants().appBlack,
             hoverColor: AppConstants().appDarkBlue,
             selected: tabController.index == 3 ? true : false,
-            leading: const Icon(Icons.dashboard),
+            leading: Image.asset(
+              'assets/images/tickets.jpg',
+              height: 30,
+              width: 30,
+            ),
             title: const Text(
               "Tickets",
               style: TextStyle(
@@ -278,7 +283,6 @@ class _HomePageState extends State<HomePage>
             ),
             onTap: () {
               tabController.animateTo(3);
-              drawerStatus ? Navigator.pop(context) : print("pressed");
             },
           ),
         ),

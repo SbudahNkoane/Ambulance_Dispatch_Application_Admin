@@ -18,7 +18,7 @@ class _ParamedicsScreenState extends State<ParamedicsScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.only(),
+        padding: const EdgeInsets.only(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,8 +52,8 @@ class _ParamedicsScreenState extends State<ParamedicsScreen> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                CircleAvatar(),
-                                SizedBox(
+                                const CircleAvatar(),
+                                const SizedBox(
                                   width: 20,
                                 ),
                                 Column(
@@ -62,10 +62,10 @@ class _ParamedicsScreenState extends State<ParamedicsScreen> {
                                   children: [
                                     Text(
                                         '${context.read<ParamedicManager>().allParamedics.length}'),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
-                                    Text('Total Paramedics'),
+                                    const Text('Total Paramedics'),
                                   ],
                                 ),
                               ],

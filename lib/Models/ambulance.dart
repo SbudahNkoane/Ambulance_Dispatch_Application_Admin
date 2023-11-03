@@ -3,13 +3,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Ambulance {
   final String? ambulanceId;
   final String numberPlate;
-  final List<dynamic>? paramedics;
+  final List<dynamic> paramedics;
   final String? managedBy;
   final String status;
   final GeoPoint realTimeLocation;
   Ambulance({
     required this.status,
-    this.paramedics,
+    required this.paramedics,
     required this.ambulanceId,
     required this.numberPlate,
     required this.managedBy,
@@ -29,5 +29,6 @@ class Ambulance {
         managedBy: json['Managed_By'] as String?,
         realTimeLocation: json['RealTime_Location'] as GeoPoint,
         status: json['Status'] as String,
+        paramedics: json['Paramedics'] as List<dynamic>,
       );
 }

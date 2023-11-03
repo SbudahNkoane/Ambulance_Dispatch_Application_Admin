@@ -1,5 +1,6 @@
 import 'package:admin_app/Models/ambulance.dart';
 import 'package:admin_app/app_constants.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class AmbulanceManager with ChangeNotifier {
@@ -15,6 +16,42 @@ class AmbulanceManager with ChangeNotifier {
   List<Ambulance> get unAvailableAmbulances => _unAvailableAmbulances;
   List<Ambulance> _busyAmbulances = [];
   List<Ambulance> get busyAmbulances => _busyAmbulances;
+
+  Future<String> registerAmbulance(Ambulance newAmbulance) async {
+    String state = 'OK';
+    _isloading = true;
+    _laodingtext = 'Saving Ambulance info...';
+    notifyListeners();
+    try {
+      final docRef = database.collection("Ambulance");
+      await docRef
+          .doc()
+          .set(
+            newAmbulance.toJson(),
+          )
+          .then((value) async {
+        await docRef
+            .where(
+              'Number_Plate',
+              isEqualTo: newAmbulance.numberPlate,
+            )
+            .get()
+            .then((value) async {
+          await docRef.doc(value.docs[0].id).update({
+            'Ambulance_Id': value.docs[0].id,
+          });
+        });
+      });
+    } on FirebaseException catch (err) {
+      state = err.message!;
+    } catch (e) {
+      state = e.toString();
+    } finally {
+      _isloading = false;
+      notifyListeners();
+    }
+    return state;
+  }
 
   Future<List<Ambulance>> getAllAmbulances() async {
     try {
@@ -36,8 +73,6 @@ class AmbulanceManager with ChangeNotifier {
           _allAmbulances = [];
         }
       });
-    } catch (error) {
-      print(error);
     } finally {
       _isloading = false;
       notifyListeners();
@@ -47,6 +82,9 @@ class AmbulanceManager with ChangeNotifier {
   }
 
   Future<List<Ambulance>> getAvailableAmbulances() async {
+    _isloading = true;
+    _laodingtext = 'Getting Available Ambulances...';
+    notifyListeners();
     try {
       final docRef = database
           .collection("Ambulance")
@@ -65,14 +103,18 @@ class AmbulanceManager with ChangeNotifier {
           _availableAmbulances = [];
         }
       });
-    } catch (error) {
-      print(error);
+    } finally {
+      _isloading = false;
+      notifyListeners();
     }
-    notifyListeners();
+
     return _availableAmbulances;
   }
 
   Future<List<Ambulance>> getUnAvailableAmbulances() async {
+    _isloading = true;
+    _laodingtext = 'getting UnAvailable Ambulances...';
+    notifyListeners();
     try {
       final docRef = database.collection("Ambulance").where('Status', whereIn: [
         'Unavailable',
@@ -92,14 +134,18 @@ class AmbulanceManager with ChangeNotifier {
           _unAvailableAmbulances = [];
         }
       });
-    } catch (error) {
-      print(error);
+    } finally {
+      _isloading = false;
+      notifyListeners();
     }
-    notifyListeners();
+
     return _unAvailableAmbulances;
   }
 
   Future<List<Ambulance>> getBusyAmbulances() async {
+    _isloading = true;
+    _laodingtext = 'Getting Dispatched Ambulances...';
+    notifyListeners();
     try {
       final docRef = database
           .collection("Ambulance")
@@ -118,10 +164,11 @@ class AmbulanceManager with ChangeNotifier {
           _busyAmbulances = [];
         }
       });
-    } catch (error) {
-      print(error);
+    } finally {
+      _isloading = false;
+      notifyListeners();
     }
-    notifyListeners();
+
     return _busyAmbulances;
   }
 }

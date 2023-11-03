@@ -20,7 +20,7 @@ class _TicketsScreenState extends State<TicketsScreen> {
       stream: context.read<TicketManager>().ticketsStreamer(),
       builder: (context, snapshot) {
         return Padding(
-          padding: EdgeInsets.only(),
+          padding: const EdgeInsets.only(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -31,8 +31,8 @@ class _TicketsScreenState extends State<TicketsScreen> {
               Selector<TicketManager, List<Ticket>>(
                 selector: (p0, p1) => widget.tickets,
                 builder: (context, value, child) {
-                  return Container(
-                    height: MediaQuery.of(context).size.height / 1.2,
+                  return SizedBox(
+                    height: MediaQuery.of(context).size.height / 1.3,
                     child: value.isNotEmpty
                         ? ListView.builder(
                             itemCount: value.length,
@@ -44,7 +44,7 @@ class _TicketsScreenState extends State<TicketsScreen> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 12,
                                       ),
                                       Row(
@@ -53,7 +53,7 @@ class _TicketsScreenState extends State<TicketsScreen> {
                                               'Requested at: ${value[index].bookedAt.year}-${value[index].bookedAt.month}-${value[index].bookedAt.day}'),
                                         ],
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 12,
                                       ),
                                       Row(
@@ -62,7 +62,7 @@ class _TicketsScreenState extends State<TicketsScreen> {
                                               'Time: ${value[index].bookedAt.hour}h:${value[index].bookedAt.minute}m:${value[index].bookedAt.second}s'),
                                         ],
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 12,
                                       ),
                                       Row(
@@ -71,7 +71,7 @@ class _TicketsScreenState extends State<TicketsScreen> {
                                               'Patient Condition: ${value[index].description}'),
                                         ],
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 12,
                                       ),
                                       value[index].status ==
@@ -85,10 +85,11 @@ class _TicketsScreenState extends State<TicketsScreen> {
                                                     AppRouteManager
                                                         .assignAmbulancePage);
                                               },
-                                              child: Text('Dispatch Ambulance'),
+                                              child: const Text(
+                                                  'Dispatch Ambulance'),
                                             )
-                                          : Text(''),
-                                      SizedBox(
+                                          : const Text(''),
+                                      const SizedBox(
                                         height: 12,
                                       ),
                                     ],
@@ -97,8 +98,8 @@ class _TicketsScreenState extends State<TicketsScreen> {
                               );
                             },
                           )
-                        : Center(
-                            child: Text('No Tickets Logged yet...'),
+                        : const Center(
+                            child: Text('No pending Tickets...'),
                           ),
                   );
                 },

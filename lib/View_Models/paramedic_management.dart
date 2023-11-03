@@ -4,11 +4,18 @@ import 'package:flutter/material.dart';
 
 class ParamedicManager with ChangeNotifier {
   FirebaseFirestore db = FirebaseFirestore.instance;
+  bool _showprogress = false;
+  bool get showProgress => _showprogress;
 
+  String _userprogresstext = "";
+  String get userProgressText => _userprogresstext;
   List<Paramedic> _allParamedics = [];
   List<Paramedic> get allParamedics => _allParamedics;
 
   Future<List<Paramedic>> getAllParamedics() async {
+    _showprogress = true;
+    _userprogresstext = "loading Paramedics...";
+    notifyListeners();
     try {
       final docRef = db.collection("Paramedic");
       await docRef.get().then((listOfParamedics) {
@@ -25,10 +32,11 @@ class ParamedicManager with ChangeNotifier {
           _allParamedics = [];
         }
       });
-    } catch (error) {
-      print(error);
+    } finally {
+      _showprogress = false;
+      notifyListeners();
     }
-    notifyListeners();
+
     return _allParamedics;
   }
 }

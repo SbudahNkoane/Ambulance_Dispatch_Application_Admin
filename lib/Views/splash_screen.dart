@@ -1,4 +1,4 @@
-import 'package:admin_app/initApp.dart';
+import 'package:admin_app/init_app.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFF5F5F5),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   fontSize: 25,
                   color: Colors.blue),
             ),
-            CircleAvatar(
+            const CircleAvatar(
               backgroundColor: Colors.transparent,
               radius: 150,
               foregroundImage: AssetImage('assets/images/logo.png'),

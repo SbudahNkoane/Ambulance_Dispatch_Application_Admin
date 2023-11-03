@@ -89,14 +89,12 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                         text: 'Reset Password',
                         onPressed: () async {
                           if (_loginFormKey.currentState!.validate()) {
-                            final result =
-                                await context.read<Authentication>().loginAdmin(
-                                      usernameController.text.trim(),
-                                      passwordController.text.trim(),
-                                    );
+                            await context.read<Authentication>().loginAdmin(
+                                  usernameController.text.trim(),
+                                  passwordController.text.trim(),
+                                );
                             if (context.read<Authentication>().currentUser ==
                                 null) {
-                              print('Verify email first');
                             } else {
                               await context
                                   .read<AdminManager>()

@@ -10,13 +10,13 @@ class AppProgressIndicator extends StatelessWidget {
     return Center(
       child: Container(
         width: double.infinity,
-        color: Color.fromARGB(209, 117, 117, 117),
+        color: const Color.fromARGB(181, 255, 255, 255),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircularProgressIndicator(),
+              const CircularProgressIndicator(),
               const SizedBox(
                 height: 16,
               ),

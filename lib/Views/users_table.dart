@@ -133,8 +133,8 @@ class UsersTable extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                height: 300,
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 3,
                 width: MediaQuery.of(context).size.width < 1300
                     ? MediaQuery.of(context).size.width - 100
                     : MediaQuery.of(context).size.width - 330,

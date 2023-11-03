@@ -116,7 +116,7 @@ class ParamedicsTable extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 300,
                 width: MediaQuery.of(context).size.width < 1300
                     ? MediaQuery.of(context).size.width - 100

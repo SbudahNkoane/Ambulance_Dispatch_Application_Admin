@@ -3,6 +3,7 @@ import 'package:admin_app/View_Models/ticket_management.dart';
 import 'package:admin_app/Views/assign_ambulance_page.dart';
 import 'package:admin_app/Views/home_page.dart';
 import 'package:admin_app/Views/login_page.dart';
+import 'package:admin_app/Views/register_ambulance_page.dart';
 import 'package:admin_app/Views/reset_password.dart';
 import 'package:admin_app/Views/splash_screen.dart';
 import 'package:admin_app/Views/pending_tickets_page.dart';
@@ -18,6 +19,7 @@ class AppRouteManager {
   static const String passwordResetPage = '/ResetPassword';
   static const String adminHomePage = '/HomePage';
   static const String assignAmbulancePage = '/assignAmbulancePage';
+  static const String registerAmbulancePage = '/registerAmbulancePage';
   static const String adminTicketsPage = '/TicketsPage';
   static const String adminUserVerificationPage = '/UserVerificationPage';
 
@@ -58,14 +60,9 @@ class AppRouteManager {
             ambulances: context.read<AmbulanceManager>().availableAmbulances,
           ),
         );
-      // case userRequestFormPage:
-      //   return MaterialPageRoute(
-      //     builder: (context) => const UserRequestFromPage(),
-      //   );
-      // case userProfilePage:
-      //   return MaterialPageRoute(
-      //     builder: (context) => const UserProfilePage(),
-      //   );
+      case registerAmbulancePage:
+        return MaterialPageRoute(
+            builder: (context) => const RegisterAmbulance());
 
       default:
         throw const FormatException('This Page does not exist!!');

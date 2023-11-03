@@ -22,7 +22,7 @@ class _AssignAmbulancePageState extends State<AssignAmbulancePage> {
             'TicketID: ${context.read<TicketManager>().openTickets[context.read<TicketManager>().clickedTicket].ticketId}'),
       ),
       body: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         height: MediaQuery.of(context).size.height / 1.3,
         child: Center(
           child: ListView.builder(
@@ -47,7 +47,7 @@ class _AssignAmbulancePageState extends State<AssignAmbulancePage> {
                       Navigator.of(context).pop();
                       setState(() {});
                     },
-                    child: Text('Assign now'),
+                    child: const Text('Assign now'),
                   ),
                 ),
               );

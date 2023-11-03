@@ -1,7 +1,8 @@
+// ignore_for_file: empty_catches
+
 import 'package:admin_app/Models/ambulance.dart';
 import 'package:admin_app/Models/ticket.dart';
 import 'package:admin_app/app_constants.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class TicketManager with ChangeNotifier {
@@ -15,6 +16,11 @@ class TicketManager with ChangeNotifier {
   List<Ticket> get pendingTickets => _pendingTickets;
   int _clickedTicket = 0;
   int get clickedTicket => _clickedTicket;
+  bool _showprogress = false;
+  bool get showProgress => _showprogress;
+
+  String _userprogresstext = "";
+  String get userProgressText => _userprogresstext;
 
   Ticket? _ticketViewed;
   Ticket? get viewedTicket => _ticketViewed;
@@ -73,6 +79,9 @@ class TicketManager with ChangeNotifier {
   }
 
   Future<List<Ticket>> getAllTickets() async {
+    _showprogress = true;
+    _userprogresstext = "Getting Tickets...";
+    notifyListeners();
     try {
       final docRef = database.collection("Ticket");
       await docRef.get().then((listOfUsers) async {
@@ -89,9 +98,8 @@ class TicketManager with ChangeNotifier {
           _allTickets = [];
         }
       });
-    } catch (error) {
-      print(error);
-    }
+    } catch (error) {}
+    _showprogress = false;
     notifyListeners();
     return _allTickets;
   }
@@ -103,6 +111,9 @@ class TicketManager with ChangeNotifier {
   }
 
   Future<List<Ticket>> getopenTickets() async {
+    _showprogress = true;
+    _userprogresstext = "loading Open Tickets...";
+    notifyListeners();
     try {
       final docRef = database.collection("Ticket").where(
             'Status',
@@ -122,14 +133,16 @@ class TicketManager with ChangeNotifier {
           _openTickets = [];
         }
       });
-    } catch (error) {
-      print(error);
-    }
+    } catch (error) {}
+    _showprogress = false;
     notifyListeners();
     return _openTickets;
   }
 
   Future<List<Ticket>> getclosedTickets() async {
+    _showprogress = true;
+    _userprogresstext = "loading Closed Tickets...";
+    notifyListeners();
     try {
       final docRef =
           database.collection("Ticket").where('Status', isEqualTo: 'Closed');
@@ -147,14 +160,16 @@ class TicketManager with ChangeNotifier {
           _closedTickets = [];
         }
       });
-    } catch (error) {
-      print(error);
-    }
+    } catch (error) {}
+    _showprogress = false;
     notifyListeners();
     return _closedTickets;
   }
 
   Future<List<Ticket>> getpendingTickets() async {
+    _showprogress = true;
+    _userprogresstext = "loading Pending Tickets...";
+    notifyListeners();
     try {
       final docRef = database.collection("Ticket").where(
         'Status',
@@ -177,9 +192,8 @@ class TicketManager with ChangeNotifier {
           _pendingTickets = [];
         }
       });
-    } catch (error) {
-      print(error);
-    }
+    } catch (error) {}
+    _showprogress = false;
     notifyListeners();
     return _pendingTickets;
   }

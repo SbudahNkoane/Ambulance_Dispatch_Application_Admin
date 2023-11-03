@@ -12,27 +12,20 @@ class AdminManager with ChangeNotifier {
   String get userProgressText => _userprogresstext;
 
   Future<Admin> getCurrentAdminData(String userID) async {
-    String result = 'OK';
     _showprogress = true;
-    _userprogresstext = 'Dropping you off...';
+    _userprogresstext = 'Getting Data...';
     notifyListeners();
     final docRef = database.collection("Admin").doc(userID);
     await docRef.get().then(
       (DocumentSnapshot doc) {
         _adminData = Admin.fromJson(doc.data() as Map<String, dynamic>);
       },
-      onError: (e) => print("Error getting document: $e"),
     );
     docRef.snapshots().listen(
       (event) {
         _adminData = Admin.fromJson(event.data());
       },
-      onError: (e) {},
     );
     return _adminData;
-  }
-
-  Future<String> updateProfilePicture() async {
-    return '';
   }
 }

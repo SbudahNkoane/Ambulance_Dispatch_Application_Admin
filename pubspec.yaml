@@ -41,8 +41,7 @@ dependencies:
   firebase_auth: ^4.9.0
   animated_bottom_navigation_bar: ^1.2.1
   google_fonts: ^6.0.0
-  geocoding: ^2.1.1
-  geolocator: ^10.1.0
+  tuple: ^2.0.1
 
 dev_dependencies:
   flutter_test:
