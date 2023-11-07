@@ -107,14 +107,11 @@ class _PendingTicketsPageState extends State<PendingTicketsPage> {
                               },
                             )
                           : const Center(
-                              child: Text('No Tickets Logged yet...'),
+                              child: Text('No pending Tickets...'),
                             ),
                     );
                   },
                 )
-                // AppTable(
-                //   future: ,
-                // ),
               ],
             ),
           );

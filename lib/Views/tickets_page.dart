@@ -99,7 +99,7 @@ class _TicketsScreenState extends State<TicketsScreen> {
                             },
                           )
                         : const Center(
-                            child: Text('No pending Tickets...'),
+                            child: Text('No Tickets logged yet...'),
                           ),
                   );
                 },
