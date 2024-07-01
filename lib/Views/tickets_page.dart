@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:admin_app/Models/ticket.dart';
 import 'package:admin_app/Routes/routes.dart';
+import 'package:admin_app/View_Models/ambulance_management.dart';
 import 'package:admin_app/View_Models/ticket_management.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -77,10 +80,13 @@ class _TicketsScreenState extends State<TicketsScreen> {
                                       value[index].status ==
                                               'Searching for an Ambulance'
                                           ? ElevatedButton(
-                                              onPressed: () {
+                                              onPressed: () async {
                                                 context
                                                     .read<TicketManager>()
                                                     .setTicketIndex(index);
+                                                await context
+                                                    .read<AmbulanceManager>()
+                                                    .getAvailableAmbulances();
                                                 Navigator.of(context).pushNamed(
                                                     AppRouteManager
                                                         .assignAmbulancePage);

@@ -15,9 +15,9 @@ class ParamedicManager with ChangeNotifier {
   Future<List<Paramedic>> getAllParamedics() async {
     _showprogress = true;
     _userprogresstext = "loading Paramedics...";
-    notifyListeners();
+    // notifyListeners();
     try {
-      final docRef = db.collection("Paramedic");
+      final docRef = db.collection("Paramedics");
       await docRef.get().then((listOfParamedics) {
         if (listOfParamedics.docs.isNotEmpty) {
           _allParamedics = [];

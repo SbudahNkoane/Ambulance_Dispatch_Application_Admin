@@ -15,7 +15,7 @@ class AdminManager with ChangeNotifier {
     _showprogress = true;
     _userprogresstext = 'Getting Data...';
     notifyListeners();
-    final docRef = database.collection("Admin").doc(userID);
+    final docRef = database.collection("Admins").doc(userID);
     await docRef.get().then(
       (DocumentSnapshot doc) {
         _adminData = Admin.fromJson(doc.data() as Map<String, dynamic>);
@@ -26,6 +26,8 @@ class AdminManager with ChangeNotifier {
         _adminData = Admin.fromJson(event.data());
       },
     );
+    _showprogress = false;
+    notifyListeners();
     return _adminData;
   }
 }

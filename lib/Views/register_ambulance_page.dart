@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:admin_app/Models/ambulance.dart';
 import 'package:admin_app/View_Models/admin_management.dart';
 import 'package:admin_app/View_Models/ambulance_management.dart';
@@ -99,7 +101,9 @@ class _RegisterAmbulanceState extends State<RegisterAmbulance> {
                     final result = await context
                         .read<AmbulanceManager>()
                         .registerAmbulance(newAmbulance);
-                    if (result == 'OK') {}
+                    if (result == 'OK') {
+                      Navigator.of(context).pop();
+                    }
                   }
                 },
                 child: const Text(

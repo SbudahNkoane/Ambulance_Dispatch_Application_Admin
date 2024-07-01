@@ -144,25 +144,7 @@ class _HomePageState extends State<HomePage>
         ),
       ),
 
-      // FutureBuilder(
-      //   future: context
-      //       .read<AdminManager>()
-      //       .getCurrentAdminData('G2qYvDryzUQjfww8zCdLiRO5As63'),
-      //   builder: (context, snapshot) {
-      //     return SafeArea(
-      //       child: Row(
-      //         crossAxisAlignment: CrossAxisAlignment.start,
-      //         children: [
-      //           Expanded(
-      //             flex: 2,
-      //             child: SideMenu(),
-      //           ),
-      //           Expanded(flex: 8, child: _pages[_index]),
-      //         ],
-      //       ),
-      //     );
-      //   },
-      // ),
+     
     );
   }
 

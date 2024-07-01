@@ -12,7 +12,7 @@ class UserManager with ChangeNotifier {
   bool _showprogress = false;
   bool get showProgress => _showprogress;
 
-  String _userprogresstext = "";
+  final String _userprogresstext = "";
   String get userProgressText => _userprogresstext;
   int _clickedUser = 0;
   int get clickedUser => _clickedUser;
@@ -27,17 +27,14 @@ class UserManager with ChangeNotifier {
   FirebaseFirestore db = FirebaseFirestore.instance;
 
   Future<List<User>> getVerifiedUsers() async {
-    _showprogress = true;
-    _userprogresstext = "loading Verified users...";
-    notifyListeners();
     try {
       await db
-          .collection('User')
+          .collection('Users')
           .where('Account_Status', isEqualTo: 'Verified')
           .get()
           .then((querySnapshot) {
         db
-            .collection('User')
+            .collection('Users')
             .where('Account_Status', isEqualTo: 'Verified')
             .snapshots()
             .listen((event) {
@@ -77,18 +74,15 @@ class UserManager with ChangeNotifier {
   }
 
   Future<List<User>> getUnverifiedUsers() async {
-    _showprogress = true;
-    _userprogresstext = "loading Unverified users...";
-    notifyListeners();
     try {
       await db
-          .collection('User')
+          .collection('Users')
           .where('Account_Status', isEqualTo: 'Not Verified')
           .get()
           .then((querySnapshot) {
         _allUnverifiedUsers = [];
         db
-            .collection('User')
+            .collection('Users')
             .where('Account_Status', isEqualTo: 'Not Verified')
             .snapshots()
             .listen((event) {
@@ -129,10 +123,7 @@ class UserManager with ChangeNotifier {
       required Admin verifyer,
       required String status}) async {
     String state = 'OK';
-    _showprogress = true;
-    _userprogresstext = "Updating User Status...";
-    notifyListeners();
-    await db.collection('User').doc(userID).update(
+    await db.collection('Users').doc(userID).update(
       {
         'Account_Status': status,
         'Verified_By': verifyer.emailaddress,
@@ -146,13 +137,17 @@ class UserManager with ChangeNotifier {
   }
 
   Future<List<User>> getAllUsers() async {
-    _showprogress = true;
-    _userprogresstext = "Loading Users...";
-    notifyListeners();
     try {
-      final docRef = db.collection("User");
+      final docRef = db.collection("Users");
       await docRef.get().then((listOfUsers) {
         _allUsers = [];
+        for (var user in listOfUsers.docs) {
+          _allUsers.add(
+            User.fromJson(
+              user.data(),
+            ),
+          );
+        }
         docRef.snapshots().listen((event) {
           _allUsers = [];
           for (var user in event.docs) {
@@ -164,13 +159,6 @@ class UserManager with ChangeNotifier {
           }
           notifyListeners();
         });
-        for (var user in listOfUsers.docs) {
-          _allUsers.add(
-            User.fromJson(
-              user.data(),
-            ),
-          );
-        }
       });
     } finally {
       _showprogress = false;

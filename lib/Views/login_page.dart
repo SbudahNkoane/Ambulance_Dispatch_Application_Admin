@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Container(
                 padding: const EdgeInsets.only(left: 70, right: 70),
                 color: AppConstants().appDarkWhite,
-                height: 530,
+                height: 555,
                 width: 450,
                 child: Column(
                   children: [
@@ -157,30 +157,30 @@ class _LoginPageState extends State<LoginPage> {
                                           .read<Authentication>()
                                           .currentUser!
                                           .uid);
-                                  await context
-                                      .read<AmbulanceManager>()
-                                      .getAllAmbulances();
-                                  await context
-                                      .read<AmbulanceManager>()
-                                      .getAvailableAmbulances();
-                                  await context
-                                      .read<AmbulanceManager>()
-                                      .getBusyAmbulances();
-                                  await context
-                                      .read<AmbulanceManager>()
-                                      .getUnAvailableAmbulances();
-                                  await context
-                                      .read<TicketManager>()
-                                      .getclosedTickets();
-                                  await context
-                                      .read<TicketManager>()
-                                      .getopenTickets();
-                                  await context
-                                      .read<TicketManager>()
-                                      .getpendingTickets();
-                                  await context
-                                      .read<ParamedicManager>()
-                                      .getAllParamedics();
+                                  // await context
+                                  //     .read<AmbulanceManager>()
+                                  //     .getAllAmbulances();
+                                  // await context
+                                  //     .read<AmbulanceManager>()
+                                  //     .getAvailableAmbulances();
+                                  // await context
+                                  //     .read<AmbulanceManager>()
+                                  //     .getBusyAmbulances();
+                                  // await context
+                                  //     .read<AmbulanceManager>()
+                                  //     .getUnAvailableAmbulances();
+                                  // await context
+                                  //     .read<TicketManager>()
+                                  //     .getclosedTickets();
+                                  // await context
+                                  //     .read<TicketManager>()
+                                  //     .getopenTickets();
+                                  // await context
+                                  //     .read<TicketManager>()
+                                  //     .getpendingTickets();
+                                  // await context
+                                  //     .read<ParamedicManager>()
+                                  //     .getAllParamedics();
                                   Navigator.of(context).pushAndRemoveUntil(
                                       MaterialPageRoute<void>(
                                         builder: (BuildContext context) =>
@@ -200,6 +200,42 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Selector<Authentication, Tuple2>(
+            selector: (context, value) =>
+                Tuple2(value.showProgress, value.userProgressText),
+            builder: (context, value, child) {
+              return value.item1
+                  ? AppProgressIndicator(text: "${value.item2}")
+                  : Container();
+            },
+          ),
+          Selector<AdminManager, Tuple2>(
+            selector: (context, value) =>
+                Tuple2(value.showProgress, value.userProgressText),
+            builder: (context, value, child) {
+              return value.item1
+                  ? AppProgressIndicator(text: "${value.item2}")
+                  : Container();
+            },
+          ),
+          Selector<AmbulanceManager, Tuple2>(
+            selector: (context, value) =>
+                Tuple2(value.isLoading, value.laodingText),
+            builder: (context, value, child) {
+              return value.item1
+                  ? AppProgressIndicator(text: "${value.item2}")
+                  : Container();
+            },
+          ),
+          Selector<TicketManager, Tuple2>(
+            selector: (context, value) =>
+                Tuple2(value.showProgress, value.userProgressText),
+            builder: (context, value, child) {
+              return value.item1
+                  ? AppProgressIndicator(text: "${value.item2}")
+                  : Container();
+            },
+          ),
+          Selector<ParamedicManager, Tuple2>(
             selector: (context, value) =>
                 Tuple2(value.showProgress, value.userProgressText),
             builder: (context, value, child) {

@@ -26,7 +26,7 @@ class TicketManager with ChangeNotifier {
   Ticket? get viewedTicket => _ticketViewed;
   Stream? _tickets;
   Stream ticketsStreamer() {
-    _tickets = database.collection('Ticket').snapshots();
+    _tickets = database.collection('Tickets').snapshots();
 
     return _tickets!;
   }
@@ -36,32 +36,76 @@ class TicketManager with ChangeNotifier {
     return _ticketViewed!;
   }
 
+  void listenToTicketsUpdate() {
+    database.collection("Tickets").snapshots().listen((event) {
+      if (event.docs.isNotEmpty) {
+        _allTickets = [];
+        _openTickets = [];
+        _closedTickets = [];
+        _pendingTickets = [];
+        for (var ticket in event.docs) {
+          _allTickets.add(
+            Ticket.fromJson(
+              ticket.data(),
+            ),
+          );
+          if (ticket.data()['Status'] == 'Searching for an Ambulance') {
+            _openTickets.add(
+              Ticket.fromJson(
+                ticket.data(),
+              ),
+            );
+          } else if (ticket.data()['Status'] == 'Closed') {
+            _closedTickets.add(
+              Ticket.fromJson(
+                ticket.data(),
+              ),
+            );
+          } else {
+            _pendingTickets.add(
+              Ticket.fromJson(
+                ticket.data(),
+              ),
+            );
+          }
+        }
+      } else {
+        _allTickets = [];
+      }
+
+      notifyListeners();
+    });
+  }
+
   Future<String> dispatchAmbulance(
       String ticketID, Ambulance ambulance, String adminID) async {
     String state = 'OK';
     try {
-      await database.collection('Dispatched Ambulance').doc(ticketID).set({
+      await database.collection('Dispatched Ambulances').doc(ticketID).set({
         'Ambulance': ambulance.toJson(),
         'Ticket_ID': ticketID,
       }).then((value) async {
         await database
-            .collection('Dispatched Ambulance')
+            .collection('Dispatched Ambulances')
             .doc(ticketID)
             .get()
             .then(
           (dispatchedAmbulance) async {
             await database
-                .collection('Ambulance')
+                .collection('Ambulances')
                 .where('Number_Plate', isEqualTo: ambulance.numberPlate)
                 .get()
-                .then((ambulance) {
-              database.collection('Ambulance').doc(ambulance.docs[0].id).update(
+                .then((ambulance) async {
+              await database
+                  .collection('Ambulances')
+                  .doc(ambulance.docs[0].id)
+                  .update(
                 {
                   'Status': 'Dispatched',
                 },
               );
             }).onError((error, stackTrace) => null);
-            await database.collection('Ticket').doc(ticketID).update(
+            await database.collection('Tickets').doc(ticketID).update(
               {
                 'Status': 'Dispatched',
                 'Dispatched_Ambulance':
@@ -81,19 +125,36 @@ class TicketManager with ChangeNotifier {
   Future<List<Ticket>> getAllTickets() async {
     _showprogress = true;
     _userprogresstext = "Getting Tickets...";
-    notifyListeners();
+    //  notifyListeners();
     try {
-      final docRef = database.collection("Ticket");
-      await docRef.get().then((listOfUsers) async {
-        if (listOfUsers.docs.isNotEmpty) {
+      final docRef = database.collection("Tickets");
+      await docRef.get().then((listOfTickets) async {
+        if (listOfTickets.docs.isNotEmpty) {
           _allTickets = [];
-          for (var user in listOfUsers.docs) {
+          for (var ticket in listOfTickets.docs) {
             _allTickets.add(
               Ticket.fromJson(
-                user.data(),
+                ticket.data(),
               ),
             );
           }
+          listenToTicketsUpdate();
+          // database.collection("Tickets").snapshots().listen((event) {
+          //   if (event.docs.isNotEmpty) {
+          //     _allTickets = [];
+          //     for (var ticket in event.docs) {
+          //       _allTickets.add(
+          //         Ticket.fromJson(
+          //           ticket.data(),
+          //         ),
+          //       );
+          //     }
+          //   } else {
+          //     _allTickets = [];
+          //   }
+
+          //   notifyListeners();
+          // });
         } else {
           _allTickets = [];
         }
@@ -115,20 +176,43 @@ class TicketManager with ChangeNotifier {
     _userprogresstext = "loading Open Tickets...";
     notifyListeners();
     try {
-      final docRef = database.collection("Ticket").where(
+      final docRef = database.collection("Tickets").where(
             'Status',
             isEqualTo: 'Searching for an Ambulance',
           );
-      await docRef.get().then((listOfUsers) async {
-        if (listOfUsers.docs.isNotEmpty) {
+      await docRef.get().then((listOfTickets) async {
+        if (listOfTickets.docs.isNotEmpty) {
           _openTickets = [];
-          for (var user in listOfUsers.docs) {
+          for (var ticket in listOfTickets.docs) {
             _openTickets.add(
               Ticket.fromJson(
-                user.data(),
+                ticket.data(),
               ),
             );
           }
+          // database
+          //     .collection("Tickets")
+          //     .where(
+          //       'Status',
+          //       isEqualTo: 'Searching for an Ambulance',
+          //     )
+          //     .snapshots()
+          //     .listen((event) {
+          //   if (event.docs.isNotEmpty) {
+          //     _openTickets = [];
+          //     for (var ticket in event.docs) {
+          //       _openTickets.add(
+          //         Ticket.fromJson(
+          //           ticket.data(),
+          //         ),
+          //       );
+          //     }
+          //   } else {
+          //     _openTickets = [];
+          //   }
+
+          //   notifyListeners();
+          // });
         } else {
           _openTickets = [];
         }
@@ -145,17 +229,40 @@ class TicketManager with ChangeNotifier {
     notifyListeners();
     try {
       final docRef =
-          database.collection("Ticket").where('Status', isEqualTo: 'Closed');
-      await docRef.get().then((listOfUsers) async {
-        if (listOfUsers.docs.isNotEmpty) {
+          database.collection("Tickets").where('Status', isEqualTo: 'Closed');
+      await docRef.get().then((listOfTickets) async {
+        if (listOfTickets.docs.isNotEmpty) {
           _closedTickets = [];
-          for (var user in listOfUsers.docs) {
+          for (var ticket in listOfTickets.docs) {
             _closedTickets.add(
               Ticket.fromJson(
-                user.data(),
+                ticket.data(),
               ),
             );
           }
+          // database
+          //     .collection("Tickets")
+          //     .where(
+          //       'Status',
+          //       isEqualTo: 'Closed',
+          //     )
+          //     .snapshots()
+          //     .listen((event) {
+          //   if (event.docs.isNotEmpty) {
+          //     _closedTickets = [];
+          //     for (var ticket in event.docs) {
+          //       _closedTickets.add(
+          //         Ticket.fromJson(
+          //           ticket.data(),
+          //         ),
+          //       );
+          //     }
+          //   } else {
+          //     _closedTickets = [];
+          //   }
+
+          //   notifyListeners();
+          // });
         } else {
           _closedTickets = [];
         }
@@ -171,23 +278,49 @@ class TicketManager with ChangeNotifier {
     _userprogresstext = "loading Pending Tickets...";
     notifyListeners();
     try {
-      final docRef = database.collection("Ticket").where(
+      final docRef = database.collection("Tickets").where(
         'Status',
         whereNotIn: [
           'Searching for an Ambulance',
           'Closed',
         ],
       );
-      await docRef.get().then((listOfUsers) async {
-        if (listOfUsers.docs.isNotEmpty) {
+      await docRef.get().then((listOfTickets) async {
+        if (listOfTickets.docs.isNotEmpty) {
           _pendingTickets = [];
-          for (var user in listOfUsers.docs) {
+          for (var ticket in listOfTickets.docs) {
             _pendingTickets.add(
               Ticket.fromJson(
-                user.data(),
+                ticket.data(),
               ),
             );
           }
+          // database
+          //     .collection("Tickets")
+          //     .where(
+          //       'Status',
+          //       whereNotIn: [
+          //         'Searching for an Ambulance',
+          //         'Closed',
+          //       ],
+          //     )
+          //     .snapshots()
+          //     .listen((event) {
+          //       if (event.docs.isNotEmpty) {
+          //         _pendingTickets = [];
+          //         for (var ticket in event.docs) {
+          //           _pendingTickets.add(
+          //             Ticket.fromJson(
+          //               ticket.data(),
+          //             ),
+          //           );
+          //         }
+          //       } else {
+          //         _pendingTickets = [];
+          //       }
+
+          //       notifyListeners();
+          //     });
         } else {
           _pendingTickets = [];
         }

@@ -25,7 +25,7 @@ class _UserVerificationScreenState extends State<UserVerificationScreen> {
         children: [
           Center(
             child: Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.only(left: 25, right: 25),
               child: SingleChildScrollView(
                   child: Selector<UserManager, List<User>>(
                 selector: (p0, p1) => p1.allUsers,

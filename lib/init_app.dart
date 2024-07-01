@@ -5,27 +5,18 @@ import 'package:admin_app/View_Models/admin_management.dart';
 import 'package:admin_app/View_Models/ambulance_management.dart';
 import 'package:admin_app/View_Models/paramedic_management.dart';
 import 'package:admin_app/View_Models/ticket_management.dart';
+import 'package:admin_app/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class InitApp {
   static initializeApp(BuildContext context) async {
     WidgetsFlutterBinding.ensureInitialized();
-    if (kIsWeb) {
-      await Firebase.initializeApp(
-        options: const FirebaseOptions(
-          apiKey: "AIzaSyBiZdF9u4h4ghH0mVQRBLhJNeZ_9CPxEEw",
-          authDomain: "ambulance-dispatch-401323.firebaseapp.com",
-          projectId: "ambulance-dispatch-401323",
-          storageBucket: "ambulance-dispatch-401323.appspot.com",
-          messagingSenderId: "314167111153",
-          appId: "1:314167111153:web:7dbab69c2d85712754e850",
-        ),
-      );
-    }
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
 
     FirebaseAuth.instance.authStateChanges().listen((user) async {
       if (context.mounted == true) {

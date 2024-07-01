@@ -44,7 +44,7 @@ class DashboardScreen extends StatelessWidget {
                               return snapshot.hasData
                                   ? Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.center,
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [

@@ -23,7 +23,7 @@ class AmbulanceManager with ChangeNotifier {
     _laodingtext = 'Saving Ambulance info...';
     notifyListeners();
     try {
-      final docRef = database.collection("Ambulance");
+      final docRef = database.collection("Ambulances");
       await docRef
           .doc()
           .set(
@@ -55,20 +55,34 @@ class AmbulanceManager with ChangeNotifier {
 
   Future<List<Ambulance>> getAllAmbulances() async {
     try {
-      final docRef = database.collection("Ambulance");
+      final docRef = database.collection("Ambulances");
       _isloading = true;
       _laodingtext = 'Getting Ambulance info...';
-      notifyListeners();
-      await docRef.get().then((listOfUsers) {
-        if (listOfUsers.docs.isNotEmpty) {
+      //   notifyListeners();
+      await docRef.get().then((listOfAmbulances) {
+        if (listOfAmbulances.docs.isNotEmpty) {
           _allAmbulances = [];
-          for (var user in listOfUsers.docs) {
+          for (var ambulance in listOfAmbulances.docs) {
             _allAmbulances.add(
               Ambulance.fromJson(
-                user.data(),
+                ambulance.data(),
               ),
             );
           }
+          database.collection("Ambulances").snapshots().listen(
+            (event) {
+              _allAmbulances = [];
+              for (var ambulance in event.docs) {
+                _allAmbulances.add(
+                  Ambulance.fromJson(
+                    ambulance.data(),
+                  ),
+                );
+              }
+              notifyListeners();
+            },
+            onDone: () async {},
+          );
         } else {
           _allAmbulances = [];
         }
@@ -87,18 +101,36 @@ class AmbulanceManager with ChangeNotifier {
     notifyListeners();
     try {
       final docRef = database
-          .collection("Ambulance")
+          .collection("Ambulances")
           .where('Status', isEqualTo: 'Available');
-      await docRef.get().then((listOfUsers) {
-        if (listOfUsers.docs.isNotEmpty) {
+      await docRef.get().then((listOfAmbulances) {
+        if (listOfAmbulances.docs.isNotEmpty) {
           _availableAmbulances = [];
-          for (var user in listOfUsers.docs) {
+          for (var ambulance in listOfAmbulances.docs) {
             _availableAmbulances.add(
               Ambulance.fromJson(
-                user.data(),
+                ambulance.data(),
               ),
             );
           }
+          database
+              .collection("Ambulances")
+              .where('Status', isEqualTo: 'Available')
+              .snapshots()
+              .listen(
+            (event) {
+              _availableAmbulances = [];
+              for (var ambulance in event.docs) {
+                _availableAmbulances.add(
+                  Ambulance.fromJson(
+                    ambulance.data(),
+                  ),
+                );
+              }
+              notifyListeners();
+            },
+            onDone: () async {},
+          );
         } else {
           _availableAmbulances = [];
         }
@@ -116,20 +148,42 @@ class AmbulanceManager with ChangeNotifier {
     _laodingtext = 'getting UnAvailable Ambulances...';
     notifyListeners();
     try {
-      final docRef = database.collection("Ambulance").where('Status', whereIn: [
+      final docRef =
+          database.collection("Ambulances").where('Status', whereIn: [
         'Unavailable',
         'Unoccupied',
       ]);
-      await docRef.get().then((listOfUsers) {
-        if (listOfUsers.docs.isNotEmpty) {
+      await docRef.get().then((listOfAmbulances) {
+        if (listOfAmbulances.docs.isNotEmpty) {
           _unAvailableAmbulances = [];
-          for (var user in listOfUsers.docs) {
+          for (var ambulance in listOfAmbulances.docs) {
             _unAvailableAmbulances.add(
               Ambulance.fromJson(
-                user.data(),
+                ambulance.data(),
               ),
             );
           }
+          database
+              .collection("Ambulances")
+              .where('Status', whereIn: [
+                'Unavailable',
+                'Unoccupied',
+              ])
+              .snapshots()
+              .listen(
+                (event) {
+                  _unAvailableAmbulances = [];
+                  for (var ambulance in event.docs) {
+                    _unAvailableAmbulances.add(
+                      Ambulance.fromJson(
+                        ambulance.data(),
+                      ),
+                    );
+                  }
+                  notifyListeners();
+                },
+                onDone: () async {},
+              );
         } else {
           _unAvailableAmbulances = [];
         }
@@ -148,18 +202,36 @@ class AmbulanceManager with ChangeNotifier {
     notifyListeners();
     try {
       final docRef = database
-          .collection("Ambulance")
+          .collection("Ambulances")
           .where('Status', isEqualTo: 'Dispatched');
-      await docRef.get().then((listOfUsers) {
-        if (listOfUsers.docs.isNotEmpty) {
+      await docRef.get().then((listOfAmbulances) {
+        if (listOfAmbulances.docs.isNotEmpty) {
           _busyAmbulances = [];
-          for (var user in listOfUsers.docs) {
+          for (var ambulances in listOfAmbulances.docs) {
             _busyAmbulances.add(
               Ambulance.fromJson(
-                user.data(),
+                ambulances.data(),
               ),
             );
           }
+          database
+              .collection("Ambulances")
+              .where('Status', isEqualTo: 'Dispatched')
+              .snapshots()
+              .listen(
+            (event) {
+              _busyAmbulances = [];
+              for (var ambulances in event.docs) {
+                _busyAmbulances.add(
+                  Ambulance.fromJson(
+                    ambulances.data(),
+                  ),
+                );
+              }
+              notifyListeners();
+            },
+            onDone: () async {},
+          );
         } else {
           _busyAmbulances = [];
         }

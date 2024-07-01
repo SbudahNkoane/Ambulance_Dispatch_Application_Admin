@@ -253,7 +253,10 @@ class UsersTable extends StatelessWidget {
                               padding: const EdgeInsets.all(15),
                               child: Center(
                                 child: snapshot.data![index].accountStatus ==
-                                        'Not Verified'
+                                            'Not Verified' &&
+                                        snapshot.data![index]
+                                                .idDocument['ID_Back'] !=
+                                            null
                                     ? TextButton(
                                         style: TextButton.styleFrom(
                                           minimumSize: const Size(100, 40),
@@ -281,34 +284,42 @@ class UsersTable extends StatelessWidget {
                                           ),
                                         ),
                                       )
-                                    : TextButton(
-                                        style: TextButton.styleFrom(
-                                          minimumSize: const Size(100, 40),
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          backgroundColor:
-                                              AppConstants().appGreen,
-                                        ),
-                                        onPressed: () {
-                                          context
-                                              .read<UserManager>()
-                                              .viewUser(index);
-                                          Navigator.pushNamed(
-                                              context,
-                                              AppRouteManager
-                                                  .adminUserVerificationPage);
-                                        },
-                                        child: Text(
-                                          'Verified',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: AppConstants().appDarkWhite,
-                                            fontFamily: 'HelveticaNeue',
+                                    : snapshot.data![index].accountStatus ==
+                                                'Not Verified' &&
+                                            snapshot.data![index]
+                                                    .idDocument['ID_Back'] ==
+                                                null
+                                        ? const Text("Awaiting Application")
+                                        : TextButton(
+                                            style: TextButton.styleFrom(
+                                              minimumSize: const Size(100, 40),
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              backgroundColor:
+                                                  AppConstants().appGreen,
+                                            ),
+                                            onPressed: () {
+                                              context
+                                                  .read<UserManager>()
+                                                  .viewUser(index);
+                                              Navigator.pushNamed(
+                                                  context,
+                                                  AppRouteManager
+                                                      .adminUserVerificationPage);
+                                            },
+                                            child: Text(
+                                              'Verified',
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                color:
+                                                    AppConstants().appDarkWhite,
+                                                fontFamily: 'HelveticaNeue',
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
                                 //const Text('Verified'),
                               ),
                             )
